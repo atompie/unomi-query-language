@@ -1,8 +1,9 @@
 from lark import Transformer, Token
 
-from app.query.mappers.condition_type_mapper import condition_type_mapper
+from app.query.mappers.field_mapper import field_mapper
 from app.query.mappers.operation_mapper import operation_mapper
 from app.query.mappers.uri_mapper import uri_mapper
+from app.query.template import property_template, nested_condition
 
 from app.utils.merger import list_of_dict_deep_update
 
@@ -18,7 +19,9 @@ class SelectTransformer(Transformer):
         elements = {k: v for k, v in args}
 
         query_data_type = elements['DATA_TYPE'] if 'DATA_TYPE' in elements else None
-        condition = elements['CONDITION'] if 'CONDITION' in elements else None
+        value_condition = elements['CONDITION'] if 'CONDITION' in elements else None
+        bool_condition = elements['BOOLEAN-CONDITION'] if 'BOOLEAN-CONDITION' in elements else None
+        condition = [('BOOLEAN-CONDITION', bool_condition), ('CONDITION', value_condition)]
         fresh = elements['FRESH'] if 'FRESH' in elements else False
         offset = elements['OFFSET'] if 'OFFSET' in elements else 0
         limit = elements['LIMIT'] if 'LIMIT' in elements else 20
@@ -33,17 +36,8 @@ class SelectTransformer(Transformer):
             "offset": offset,
             "limit": limit,
             "forceRefresh": fresh,
+            "condition": nested_condition(condition, query_data_type)
         }
-
-        if condition:
-            if query_data_type not in condition_type_mapper:
-                raise ValueError("Unknown data type {}".format(query_data_type))
-
-            # znajdz jakiego typu użyc czy z zapytania czy z pola.
-            data_type = condition['field']['unomi-type'] if 'unomi-type' in condition['field'] else query_data_type
-            unomi_condition_type = condition_type_mapper[data_type]['condition']
-
-            query["condition"] = condition_type_mapper[query_data_type]['template'](condition, unomi_condition_type)
 
         return uri, method, query
 
@@ -85,21 +79,15 @@ class SelectTransformer(Transformer):
         return self.condition(args)
 
     def and_expr(self, args):
-        return "CONDITION", {
-            "type": "booleanCondition",
-            "parameterValues": {
-                "operator": "and",
-                "subConditions": [v for k, v in args]
-            }
+        return "BOOLEAN-CONDITION", {
+            "bool": "and",
+            "subConditions": args
         }
 
     def or_expr(self, args):
-        return "CONDITION", {
-            "type": "booleanCondition",
-            "parameterValues": {
-                "operator": "or",
-                "subConditions": [v for k, v in args]
-            }
+        return "BOOLEAN-CONDITION", {
+            "bool": "or",
+            "subConditions": args
         }
 
     def CHUNK(self, args):
@@ -226,12 +214,12 @@ class SelectTransformer(Transformer):
             type = splited_args[0]
             field = splited_args[1]
             return {
-                    'field': {
-                        'token': args,
-                        'unomi-type': type,
-                        'field': field
-                    }
+                'field': {
+                    'token': args,
+                    'unomi-type': type,
+                    'field': field
                 }
+            }
         else:
             return {
                 'field': {
@@ -247,4 +235,3 @@ class SelectTransformer(Transformer):
                 'unomi-op': self._cmp[str(args)],
             }
         }
-

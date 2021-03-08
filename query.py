@@ -4,7 +4,7 @@ from pprint import pprint
 
 p = SelectParser()
 t = p.parse(
-    "SELECT RULE WHERE profile.id=\"form\" -- comment"
+    "SELECT EVENT WHERE a.a=1 and (profile.id=\"form\" or session.forfile.is>1) -- comment"
 )
 
 print(t)
