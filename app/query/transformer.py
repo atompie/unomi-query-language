@@ -17,13 +17,13 @@ class SelectTransformer(Transformer):
 
         elements = {k: v for k, v in args}
 
-        data_type = elements['DATA_TYPE'] if 'DATA_TYPE' in elements else None
+        query_data_type = elements['DATA_TYPE'] if 'DATA_TYPE' in elements else None
         condition = elements['CONDITION'] if 'CONDITION' in elements else None
         fresh = elements['FRESH'] if 'FRESH' in elements else False
         offset = elements['OFFSET'] if 'OFFSET' in elements else 0
         limit = elements['LIMIT'] if 'LIMIT' in elements else 20
 
-        key = ('select', data_type)
+        key = ('select', query_data_type)
         if key in uri_mapper:
             uri, method = uri_mapper[key]
         else:
@@ -33,11 +33,17 @@ class SelectTransformer(Transformer):
             "offset": offset,
             "limit": limit,
             "forceRefresh": fresh,
-
         }
 
         if condition:
-            query["condition"] = condition
+            if query_data_type not in condition_type_mapper:
+                raise ValueError("Unknown data type {}".format(query_data_type))
+
+            # znajdz jakiego typu użyc czy z zapytania czy z pola.
+            data_type = condition['field']['unomi-type'] if 'unomi-type' in condition['field'] else query_data_type
+            unomi_condition_type = condition_type_mapper[data_type]['condition']
+
+            query["condition"] = condition_type_mapper[query_data_type]['template'](condition, unomi_condition_type)
 
         return uri, method, query
 
@@ -110,11 +116,7 @@ class SelectTransformer(Transformer):
             'values': args[2] if len(args) > 2 else None,
         }
 
-        type = args['field']['type']
-        if type in condition_type_mapper:
-            return 'CONDITION', condition_type_mapper[type]['template'](args)
-
-        raise ValueError(f"Unknown condition {type}!")
+        return 'CONDITION', args
 
     def value(self, args):
         token = args[0]  # type: Token
@@ -219,21 +221,24 @@ class SelectTransformer(Transformer):
 
     def FIELD(self, args):
 
-        splited_args = args.split(":")
-
-        type = splited_args[0]
-        field = splited_args[1]
-        if type in condition_type_mapper:
+        if ':' in args:
+            splited_args = args.split(":")
+            type = splited_args[0]
+            field = splited_args[1]
+            return {
+                    'field': {
+                        'token': args,
+                        'unomi-type': type,
+                        'field': field
+                    }
+                }
+        else:
             return {
                 'field': {
                     'token': args,
-                    'unomi-type': condition_type_mapper[type]['condition'],
-                    'type': type,
-                    'field': field
+                    'field': args.value
                 }
             }
-        else:
-            raise ValueError(f"Unknown field {args}")
 
     def OP(self, args):
         return {

@@ -4,7 +4,7 @@ from pprint import pprint
 
 p = SelectParser()
 t = p.parse(
-    "SELECT EVENT WHERE profile.id=\"form\" not exists -- comment"
+    "SELECT RULE WHERE profile.id=\"form\" -- comment"
 )
 
 print(t)

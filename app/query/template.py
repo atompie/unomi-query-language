@@ -1,6 +1,7 @@
-def property_template(args):
+def property_template(args, unomi_condition_type):
+
     result = {
-        "type": args['field']['unomi-type'],
+        "type": unomi_condition_type,
         "parameterValues": {
             "propertyName": args['field']['field'],
             "comparisonOperator": args['op']['unomi-op']
