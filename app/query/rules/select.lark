@@ -1,0 +1,47 @@
+?select: "SELECT" FRESH? DATA_TYPE where? offset? limit?
+
+?expr: and_expr
+        | or_expr
+?value: NUMBER
+        | SIGNED_NUMBER
+        | ESCAPED_STRING
+        | array
+        | range
+        | NULL
+?and_expr: condition
+        | "(" expr ")"
+        | and_expr "and" and_expr
+?or_expr: condition
+        | "(" expr ")"
+        | or_expr "or" or_expr
+?condition: FIELD OP value
+        | exists
+        | not_exists
+        | between
+        | is_null
+
+between: FIELD OP range
+exists: FIELD "exists"
+not_exists: FIELD "not exists"
+
+range: value"-"value
+array: "[" [value ("," value)*] "]"
+OP: /(!=|<=|>=|=>|=<|=|>|<|between)/
+FIELD: /[a-zA-Z0-9\._\-:]+/
+FRESH: "FRESH"i
+NULL: "NULL"i
+DATA_TYPE: /(EVENT|RULE|PROFILE|SEGMENT|GOAL|SCORING|SESSION)/i
+offset: "OFFSET"i NUMBER
+limit: "LIMIT"i NUMBER
+where: "WHERE"i expr
+is_null: FIELD "IS NULL"i
+
+%import common.ESCAPED_STRING
+%import common.SIGNED_NUMBER
+%import common.DECIMAL
+%import common.NUMBER
+%import common.WS
+%ignore WS
+
+COMMENT_VALUE: "--" /[^\n]/*
+%ignore COMMENT_VALUE
