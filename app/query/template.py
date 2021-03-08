@@ -1,4 +1,4 @@
-from app.query.mappers.condition_type_mapper import condition_type_mapper
+from app.query.mappers.condition_type_mapper import condition_mapper
 
 
 def nested_condition(condition_args, query_data_type):
@@ -21,19 +21,44 @@ def boolean_condition(args, query_data_type):
 
 
 def property_template(args, query_data_type):
+    def check_field(field):
 
-    # znajdz jakiego typu użyc czy z zapytania czy z pola.
+        # check allowed fields
+
+        allowed_fields = condition_mapper[data_type]['fields']
+
+        if field not in allowed_fields:
+            #  maybe it in allowed namespace
+            allowed_namespaces = condition_mapper[data_type]['namespaces']
+            for namespace in allowed_namespaces:
+                if field[:len(namespace)] == namespace:
+                    return field
+            return None
+
+        return allowed_fields[field]
+
+    # find data type. It can be form query of field.
     data_type = args['field']['unomi-type'] if 'unomi-type' in args['field'] else query_data_type
 
-    if query_data_type not in condition_type_mapper:
+    if query_data_type not in condition_mapper:
         raise ValueError("Unknown data type {}".format(query_data_type))
 
-    unomi_condition_type = condition_type_mapper[data_type]['condition']
+    unomi_condition_type = condition_mapper[data_type]['condition']
+
+    # check allowed fields
+
+    field = check_field(args['field']['field'])
+    if not field:
+        allowed_fields = list(condition_mapper[data_type]['fields'].keys())
+        allowed_namespaces = list(condition_mapper[data_type]['namespaces'].keys())
+        raise ValueError(
+            "Field `{}` is not allowed. Available fields are {} and namespaces {}".format(field, allowed_fields,
+                                                                                          allowed_namespaces))
 
     result = {
         "type": unomi_condition_type,
         "parameterValues": {
-            "propertyName": args['field']['field'],
+            "propertyName": field,
             "comparisonOperator": args['op']['unomi-op']
         }
     }

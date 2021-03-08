@@ -1,6 +1,4 @@
 from lark import Transformer, Token
-
-from app.query.mappers.field_mapper import field_mapper
 from app.query.mappers.operation_mapper import operation_mapper
 from app.query.mappers.uri_mapper import uri_mapper
 from app.query.template import property_template, nested_condition
