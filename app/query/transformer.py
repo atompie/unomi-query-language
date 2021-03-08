@@ -145,7 +145,7 @@ class SelectTransformer(Transformer):
 
         args.append({'op': {
             'token': 'exists',
-            'unomi-op': self._cmp['not exists'],
+            'unomi-op': self._cmp['exists'],
         }})
 
         return self.condition(args)

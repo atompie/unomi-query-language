@@ -5,7 +5,7 @@ from app.query.parser import SelectParser
 from app.query.transformer import SelectTransformer
 from pprint import pprint
 
-uql = "SELECT EVENT WHERE event:eventType=\"form\" OFFSET 0 LIMIT 100 -- comment"
+uql = "SELECT EVENT WHERE target.type =\"session\" OFFSET 0 LIMIT 100 -- comment"
 
 p = SelectParser()
 t = p.parse(

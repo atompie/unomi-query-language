@@ -14,11 +14,16 @@ condition_mapper = {
             'target.scope': "target.scope",
             'source.type': "source.itemType",
             'target.type': "target.itemType",
+            'target.profile.id': "target.profile.itemType",
         },
         "namespaces": {  # allowed fields namespace
             'properties': "properties",
             'source.properties': "source.properties",
+            'target': "target",
+            'source': "source",
             'target.properties': "target.properties",
+            'target.profile.properties': "target.profile.properties",
+            'target.profile': "target.profile"
         },
     },
     "profile": {

@@ -53,7 +53,7 @@ def property_template(args, query_data_type):
         allowed_fields = list(condition_mapper[data_type]['fields'].keys())
         allowed_namespaces = list(condition_mapper[data_type]['namespaces'].keys())
         raise ValueError(
-            "Field `{}` is not allowed. Available fields are {} and namespaces {}".format(query_field, allowed_fields,
+            "Field or Namespace `{}` is not allowed. Available fields are {} and namespaces {}".format(query_field, allowed_fields,
                                                                                           allowed_namespaces))
 
     result = {
