@@ -1,4 +1,4 @@
-?select: "SELECT" FRESH? DATA_TYPE where? offset? limit?
+select: "SELECT" FRESH? data_type where? offset? limit?
 
 ?expr: and_expr
         | or_expr
@@ -30,7 +30,7 @@ OP: /(!=|<=|>=|=>|=<|=|>|<|between)/
 FIELD: /[a-zA-Z0-9\._\-:]+/
 FRESH: "FRESH"i
 NULL: "NULL"i
-DATA_TYPE: /(EVENT|RULE|PROFILE|SEGMENT|GOAL|SCORING|SESSION)/i
+data_type: /(EVENT|RULE|PROFILE|SEGMENT|GOAL|SCORING|SESSION)/i
 offset: "OFFSET"i NUMBER
 limit: "LIMIT"i NUMBER
 where: "WHERE"i expr

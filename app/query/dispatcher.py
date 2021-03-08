@@ -1,6 +1,5 @@
-from pprint import pprint
-
 import requests
+requests.packages.urllib3.disable_warnings()
 
 
 class Credentials:
@@ -57,10 +56,6 @@ class Dispatcher:
     def fetch(self, query):
         _request = RequestData(*query)
         _host = str(self._host.uri(_request.uri))
-        print(_host)
-        import json
-        print(json.dumps(_request.body))
-        print(type(_request.body))
 
         if _request.method == "GET":
             return requests.get(_host, verify=False)

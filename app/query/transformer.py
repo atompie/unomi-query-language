@@ -34,16 +34,19 @@ class SelectTransformer(Transformer):
             "offset": offset,
             "limit": limit,
             "forceRefresh": fresh,
-            "condition": nested_condition(condition, query_data_type)
         }
+
+        condition = nested_condition(condition, query_data_type)
+        if condition:
+            query['condition'] = condition
 
         return uri, method, query
 
     def where(self, args):
         return args[0]
 
-    def DATA_TYPE(self, args):
-        return 'DATA_TYPE', args.value.lower()
+    def data_type(self, args):
+        return 'DATA_TYPE', args[0].value.lower()
 
     def FRESH(self, args):
         return 'FRESH', args.value.lower()

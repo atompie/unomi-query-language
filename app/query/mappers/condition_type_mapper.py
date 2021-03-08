@@ -31,6 +31,7 @@ condition_mapper = {
         "fields": {
             'id': "itemId",
             'timestamp': 'systemProperties.lastUpdated',
+            'visits': 'properties.nbOfVisits'
         },
         "namespaces": {
             'properties': "properties",
