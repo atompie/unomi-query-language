@@ -1,0 +1,14 @@
+create_segment: "CREATE"i data_type create_name in_scope when
+
+%condition.lark%
+
+data_type: /SEGMENT/i
+create_name: ESCAPED_STRING
+when: "WHEN"i expr
+in_scope: "IN SCOPE"i ESCAPED_STRING
+
+%import common.WS
+%ignore WS
+
+COMMENT_VALUE: "--" /[^\n]/*
+%ignore COMMENT_VALUE

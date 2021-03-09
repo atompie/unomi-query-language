@@ -3,19 +3,20 @@ from app.query.template import nested_condition
 from app.query.transformers.condition_transformer import ConditionTransformer
 
 
-class CreateTransformer(ConditionTransformer):
+class CreateSegmentTransformer(ConditionTransformer):
 
     def __init__(self):
         super().__init__()
 
-    def create(self, args):
+    def create_segment(self, args):
 
         elements = {k: v for k, v in args}
 
         name = elements['NAME'] if 'NAME' in elements else None
+        segment_id = name.lower().replace(" ","-").replace("_",'-')
         query_data_type = elements['DATA_TYPE'] if 'DATA_TYPE' in elements else None
         when_condition = elements['WHEN'] if 'WHEN' in elements else None
-        then_action = elements['THEN'] if 'THEN' in elements else None
+        scope = elements['IN_SCOPE'] if 'IN_SCOPE' in elements else None
 
         when_condition = {k: v for k, v in [when_condition]}
 
@@ -24,22 +25,27 @@ class CreateTransformer(ConditionTransformer):
 
         condition = [('BOOLEAN-CONDITION', when_bool_condition), ('CONDITION', when_field_condition)]
 
-        # key = ('create', query_data_type)
-        # if key in uri_mapper:
-        #     uri, method = uri_mapper[key]
-        # else:
-        #     raise ValueError("Unknown {} {} syntax.".format(key[0], key[1]))
+        key = ('create', query_data_type)
+        if key not in uri_mapper:
+            raise ValueError("Unknown {} {} syntax.".format(key[0], key[1]))
+
+        uri, method, status = uri_mapper[key]
 
         query = {
-
+            "itemId": segment_id,
+            "itemType": "segment",
+            "metadata": {
+                "id": segment_id,
+                "name": name,
+                "scope": scope
+            }
         }
 
         condition = nested_condition(condition, query_data_type)
         if condition:
             query['condition'] = condition
 
-        return query
-        # return uri, method, query
+        return uri, method, query, status
 
     def when(self, args):
         return 'WHEN', args[0]
@@ -51,5 +57,8 @@ class CreateTransformer(ConditionTransformer):
         return 'DATA_TYPE', args[0].value.lower()
 
     def create_name(self, args):
-        return 'NAME', str(args[0].value)
+        return 'NAME', str(args[0].value).strip("\"")
+
+    def in_scope(self, args):
+        return 'IN_SCOPE', str(args[0].value).strip("\"")
 

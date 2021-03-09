@@ -41,7 +41,7 @@ def property_template(args, query_data_type):
     data_type = args['field']['unomi-type'] if 'unomi-type' in args['field'] else query_data_type
 
     if query_data_type not in condition_mapper:
-        raise ValueError("Unknown data type {}".format(query_data_type))
+        raise ValueError("Unknown data type {} in condition mapper".format(query_data_type))
 
     unomi_condition_type = condition_mapper[data_type]['condition']
 

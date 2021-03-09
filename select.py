@@ -1,9 +1,7 @@
 from app.query.parser import Parser
-from app.query.rules.grammars import create, condition, select
+from app.query.rules.grammars import select
 from pprint import pprint
 
-from app.query.transformers.condition_transformer import ConditionTransformer
-from app.query.transformers.create_transformer import CreateTransformer
 from app.query.transformers.select_transformer import SelectTransformer
 
 p = Parser(select(), start='select')

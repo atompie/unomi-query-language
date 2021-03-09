@@ -18,9 +18,9 @@ condition_mapper = {
         },
         "namespaces": {  # allowed fields namespace
             'properties': "properties",
+            'source': "source",
             'source.properties': "source.properties",
             'target': "target",
-            'source': "source",
             'target.properties': "target.properties",
             'target.profile.properties': "target.profile.properties",
             'target.profile': "target.profile"
@@ -68,6 +68,7 @@ condition_mapper = {
             'source.id': "source.itemId",
             'target.id': "target.itemId",
             'source.scope': "source.scope",
+
             'target.scope': "target.scope",
             'source.type': "source.itemType",
             'target.type': "target.itemType",
@@ -75,6 +76,31 @@ condition_mapper = {
         },
         "namespaces": {
             'properties': "properties",
+            'segments': "segments",
+            'scores': "scores",
+        }
+    },
+    "segment": {
+        "condition": None,
+        "fields": {  # allowed fields
+            'id': "itemId",
+            'scope': "scope",
+            'type': 'eventType',
+            'timestamp': 'timeStamp',
+            'profile.id': "profileId",
+            'session.id': "sessionId",
+            'source.id': "source.itemId",
+            'target.id': "target.itemId",
+            'source.scope': "source.scope",
+
+            'target.scope': "target.scope",
+            'source.type': "source.itemType",
+            'target.type': "target.itemType",
+            'target.profile.id': "target.profile.itemType",
+        },
+        "namespaces": {
+            'properties': "properties",
+            'profile': 'profile',
             'segments': "segments",
             'scores': "scores",
         }

@@ -14,7 +14,7 @@ t = p.parse(
 print(uql)
 query = SelectTransformer().transform(t)
 print(query)
-host = Host('localhost', port=9443, protocol='https').credentials('karaf','karaf')
+host = Host('localhost', port=8181, protocol='http').credentials('karaf','karaf')
 dispatcher = Dispatcher(host)
 response = dispatcher.fetch(query)
 if response.status_code == 200:
