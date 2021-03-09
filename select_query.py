@@ -6,10 +6,10 @@ from app.query.transformers.condition_transformer import ConditionTransformer
 from app.query.transformers.create_transformer import CreateTransformer
 from app.query.transformers.select_transformer import SelectTransformer
 
-p = Parser(create(), start='create')
+p = Parser(select(), start='select')
 t = p.parse(
-    "create rule \"ala ma kota\" when properties.name=true then"
+    "select event where properties.name=\"asasas\" and id=14.3 and id between 1-2"
 )
 
 print(t)
-pprint(CreateTransformer().transform(t))
+pprint(SelectTransformer().transform(t))

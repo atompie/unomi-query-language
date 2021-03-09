@@ -1,0 +1,43 @@
+?expr: and_expr
+        | or_expr
+?value: INTEGER
+        | FLOAT
+        | STRING
+        | array
+        | range
+        | NULL
+        | BOOL
+?and_expr: condition
+        | "(" expr ")"
+        | and_expr "and" and_expr
+?or_expr: condition
+        | "(" expr ")"
+        | or_expr "or" or_expr
+?condition: FIELD OP value
+        | exists
+        | not_exists
+        | between
+        | is_null
+
+between: FIELD OP range
+exists: FIELD "exists"
+not_exists: FIELD "not exists"
+OP: /(!=|<=|>=|=>|=<|=|>|<|between)/
+is_null: FIELD "IS NULL"i
+
+range: value"-"value
+array: "[" [value ("," value)*] "]"
+FIELD: /[a-zA-Z0-9\._\-:]+/
+NULL: "NULL"i
+BOOL: /(TRUE|FALSE)/i
+dict : "{" [pair ("," pair)*] "}"
+pair : STRING ":" value
+STRING: ESCAPED_STRING
+INTEGER: /\d+/
+FLOAT: NUMBER
+
+%import common.ESCAPED_STRING
+%import common.DECIMAL
+%import common.NUMBER
+%import common.WS
+%ignore WS

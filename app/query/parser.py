@@ -4,11 +4,10 @@ from lark import Lark
 _local_dir = os.path.dirname(__file__)
 
 
-class SelectParser:
+class Parser:
 
-    def __init__(self):
-        with open(os.path.join(_local_dir,"rules/select.lark"), 'r') as f:
-            self.base_parser = Lark(f.read(), start="select")
+    def __init__(self, grammar, start, parser='earley', transformer=None):
+        self.base_parser = Lark(grammar, start=start, parser=parser, transformer=transformer)
 
     def parse(self, query):
         return self.base_parser.parse(query)

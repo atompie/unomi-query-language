@@ -1,0 +1,26 @@
+import os
+
+_local_dir = os.path.dirname(__file__)
+
+
+def condition():
+    with open(os.path.join(_local_dir, 'condition.lark')) as f:
+        return f.read()
+
+
+def select():
+    _condition_file = condition()
+
+    with open(os.path.join(_local_dir, 'select.lark')) as f:
+        file = f.read()
+
+    return file.replace('%condition.lark%', _condition_file)
+
+
+def create():
+    _condition_file = condition()
+
+    with open(os.path.join(_local_dir, 'create.lark')) as f:
+        file = f.read()
+
+    return file.replace('%condition.lark%', _condition_file)
