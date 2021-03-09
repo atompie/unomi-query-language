@@ -6,7 +6,6 @@ class ValueTransformer(Transformer):
 
     def __init__(self):
         super().__init__()
-        self._cmp = operation_mapper
 
     def value(self, args):
         token = args[0]  # type: Token
@@ -21,7 +20,7 @@ class ValueTransformer(Transformer):
                 'token': args,
                 'type': 'bool',
                 "unomi-type": 'propertyValue',
-                'value': True if args.value.lower()=='true' else False
+                'value': True if args.value.lower() == 'true' else False
             }
         }
 
@@ -90,4 +89,3 @@ class ValueTransformer(Transformer):
                 'value': None
             }
         }
-

@@ -12,10 +12,17 @@ class CreateTransformer(ConditionTransformer):
 
         elements = {k: v for k, v in args}
 
+        name = elements['NAME'] if 'NAME' in elements else None
         query_data_type = elements['DATA_TYPE'] if 'DATA_TYPE' in elements else None
-        value_condition = elements['CONDITION'] if 'CONDITION' in elements else None
-        bool_condition = elements['BOOLEAN-CONDITION'] if 'BOOLEAN-CONDITION' in elements else None
-        condition = [('BOOLEAN-CONDITION', bool_condition), ('CONDITION', value_condition)]
+        when_condition = elements['WHEN'] if 'WHEN' in elements else None
+        then_action = elements['THEN'] if 'THEN' in elements else None
+
+        when_condition = {k: v for k, v in [when_condition]}
+
+        when_field_condition = when_condition['CONDITION'] if 'CONDITION' in when_condition else None
+        when_bool_condition = when_condition['BOOLEAN-CONDITION'] if 'BOOLEAN-CONDITION' in when_condition else None
+
+        condition = [('BOOLEAN-CONDITION', when_bool_condition), ('CONDITION', when_field_condition)]
 
         # key = ('create', query_data_type)
         # if key in uri_mapper:
@@ -35,11 +42,14 @@ class CreateTransformer(ConditionTransformer):
         # return uri, method, query
 
     def when(self, args):
-        return args[0]
+        return 'WHEN', args[0]
+
+    def then(self, args):
+        return 'THEN', args[0]
 
     def data_type(self, args):
         return 'DATA_TYPE', args[0].value.lower()
 
     def create_name(self, args):
-        return 'NAME', str(args[0]['value']['value'])
+        return 'NAME', str(args[0].value)
 

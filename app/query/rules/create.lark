@@ -5,7 +5,7 @@ create: "CREATE"i data_type create_name when then
 data_type: /(RULE|SEGEMNT)/i
 create_name: ESCAPED_STRING
 when: "WHEN"i expr
-then: "THEN"i
+then: "THEN"i expr
 
 %import common.ESCAPED_STRING
 %import common.SIGNED_NUMBER

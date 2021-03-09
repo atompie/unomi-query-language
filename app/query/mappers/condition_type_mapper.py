@@ -55,5 +55,28 @@ condition_mapper = {
             'profile.segments': "profile.segments",
             'profile.scores': "profile.scores",
         }
+    },
+    "rule": {
+        "condition": None,
+        "fields": {  # allowed fields
+            'id': "itemId",
+            'scope': "scope",
+            'type': 'eventType',
+            'timestamp': 'timeStamp',
+            'profile.id': "profileId",
+            'session.id': "sessionId",
+            'source.id': "source.itemId",
+            'target.id': "target.itemId",
+            'source.scope': "source.scope",
+            'target.scope': "target.scope",
+            'source.type': "source.itemType",
+            'target.type': "target.itemType",
+            'target.profile.id': "target.profile.itemType",
+        },
+        "namespaces": {
+            'properties': "properties",
+            'segments': "segments",
+            'scores': "scores",
+        }
     }
 }

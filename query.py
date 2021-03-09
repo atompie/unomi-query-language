@@ -8,7 +8,7 @@ from app.query.transformers.select_transformer import SelectTransformer
 
 p = Parser(create(), start='create')
 t = p.parse(
-    "create rule \"ala ma kota\" when properties.name=true then"
+    "create rule \"ala ma kota\" when properties.name=1 then properties.name=true"
 )
 
 print(t)
