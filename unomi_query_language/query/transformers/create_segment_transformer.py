@@ -1,6 +1,6 @@
-from app.query.mappers.uri_mapper import uri_mapper
-from app.query.template import nested_condition
-from app.query.transformers.condition_transformer import ConditionTransformer
+from unomi_query_language.query.mappers.uri_mapper import uri_mapper
+from unomi_query_language.query.template import nested_condition
+from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
 
 
 class CreateSegmentTransformer(ConditionTransformer):

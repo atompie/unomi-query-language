@@ -1,4 +1,4 @@
-from app.query.mappers.condition_type_mapper import condition_mapper
+from unomi_query_language.query.mappers.condition_type_mapper import condition_mapper
 
 
 def nested_condition(condition_args, query_data_type):

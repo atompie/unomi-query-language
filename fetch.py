@@ -1,9 +1,10 @@
 import json
 
-from app.query.dispatcher import Dispatcher, Host
-from app.query.parser import Parser
-from app.query.transformer import SelectTransformer
+from unomi_query_language.query.dispatcher import Dispatcher, Host
+from unomi_query_language.query.parser import Parser
 from pprint import pprint
+
+from unomi_query_language.query.transformers.select_transformer import SelectTransformer
 
 uql = "SELECT EVENT"
 

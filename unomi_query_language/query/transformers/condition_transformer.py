@@ -1,5 +1,5 @@
-from app.query.mappers.operation_mapper import operation_mapper
-from app.query.transformers.value_transformer import ValueTransformer
+from unomi_query_language.query.mappers.operation_mapper import operation_mapper
+from unomi_query_language.query.transformers.value_transformer import ValueTransformer
 
 
 class ConditionTransformer(ValueTransformer):

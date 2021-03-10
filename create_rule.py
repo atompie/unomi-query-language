@@ -1,11 +1,10 @@
 import json
 
-from app.query.parser import Parser
-from app.query.rules.grammars import create_rule
+from unomi_query_language.query.parser import Parser
+from unomi_query_language.query.grammar.grammars import create_rule
 from pprint import pprint
 
-from app.query.transformers.create_rule_transformer import CreateRuleTransformer
-from app.query.transformers.select_transformer import SelectTransformer
+from unomi_query_language.query.transformers.create_rule_transformer import CreateRuleTransformer
 
 p = Parser(create_rule(), start='create_rule')
 t = p.parse(
@@ -15,7 +14,7 @@ t = p.parse(
     // DESCRIBE "Copies user data from events target properties to profile"
     IN SCOPE "kuptoo" 
     WHEN event:type="identify" 
-    THEN allEventToProfilePropertiesAction(), setPropertyAction("profile:lastName()","alwaysSet")
+    THEN copyEventsToProfileProperties(), setProfilePropertyFromEvent("x","lastName")
     
     """
 )

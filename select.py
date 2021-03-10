@@ -1,8 +1,8 @@
-from app.query.parser import Parser
-from app.query.rules.grammars import select
+from unomi_query_language.query.parser import Parser
+from unomi_query_language.query.grammar.grammars import select
 from pprint import pprint
 
-from app.query.transformers.select_transformer import SelectTransformer
+from unomi_query_language.query.transformers.select_transformer import SelectTransformer
 
 p = Parser(select(), start='select')
 t = p.parse(

@@ -1,7 +1,7 @@
-from app.query.mappers.action_mapper import action_mapper
-from app.query.mappers.uri_mapper import uri_mapper
-from app.query.template import nested_condition
-from app.query.transformers.condition_transformer import ConditionTransformer
+from unomi_query_language.query.mappers.controllers.action_controller import action_controller
+from unomi_query_language.query.mappers.uri_mapper import uri_mapper
+from unomi_query_language.query.template import nested_condition
+from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
 
 
 class CreateRuleTransformer(ConditionTransformer):
@@ -70,9 +70,8 @@ class CreateRuleTransformer(ConditionTransformer):
         for function_elements in then[1]:
             function_name, function_params = get_function_meat(function_elements)
 
-            if function_name in action_mapper:
-                template = action_mapper[function_name](function_params)
-                query['actions'].append(template)
+            template = action_controller.run(function_name)(function_params)
+            query['actions'].append(template)
 
         return uri, method, query, status
 

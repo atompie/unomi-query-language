@@ -1,5 +1,5 @@
 from lark import Transformer, Token
-from app.query.mappers.operation_mapper import operation_mapper
+from unomi_query_language.query.mappers.operation_mapper import operation_mapper
 
 
 class ValueTransformer(Transformer):

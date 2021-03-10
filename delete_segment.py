@@ -1,9 +1,9 @@
 import json
 
-from app.query.parser import Parser
-from app.query.rules.grammars import delete
+from unomi_query_language.query.parser import Parser
+from unomi_query_language.query.grammar.grammars import delete
 from pprint import pprint
-from app.query.transformers.delete_transformer import DeleteTransformer
+from unomi_query_language.query.transformers.delete_transformer import DeleteTransformer
 
 p = Parser(delete(), start='delete')
 t = p.parse(
