@@ -1,6 +1,7 @@
 %import .uql_expr (expr, NUMBER, ESCAPED_STRING, WS, COMMENT_VALUE)
 %import .uql_meta (READ_ONLY, DISABLED, HIDDEN, NAME, describe, in_scope, with_tags)
 %import .uql_terminals (WHEN_TERMINAL, THEN_TERMINAL)
+%import .uql_function (function)
 
 // CREATE RULE
 create_rule: "CREATE"i READ_ONLY? DISABLED? HIDDEN? data_type with_tags? NAME describe? in_scope when then
@@ -9,14 +10,7 @@ data_type: /RULE/i
 
 when: WHEN_TERMINAL expr
 then: THEN_TERMINAL functions
-functions: [function ("," function)*]
-function: function_name "(" params? ")"
-function_name: /[a-zA-z_0-9]+/
-params: [param ("," param)*]
-param: ESCAPED_STRING
-    | NUMBER
-    | DOTTED_FIELD
-DOTTED_FIELD: /[a-zA-Z0-9\._\-:]+/
+?functions: [function ("," function)*]
 
 %ignore COMMENT_VALUE
 %ignore WS

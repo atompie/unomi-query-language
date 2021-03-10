@@ -3,7 +3,7 @@ import json
 from unomi_query_language.query.parser import Parser
 from unomi_query_language.query.grammar.grammars import read
 from pprint import pprint
-from unomi_query_language.query.transformers.uql_transformer import UqlTransformer
+from unomi_query_language.query.transformers.function_transformer import UqlTransformer
 
 p = Parser(read('uql.lark'), start="start")
 t = p.parse(
