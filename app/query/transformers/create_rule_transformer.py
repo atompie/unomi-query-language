@@ -23,7 +23,7 @@ class CreateRuleTransformer(ConditionTransformer):
         elements = {k: v for k, v in args}
 
         name = elements['NAME'] if 'NAME' in elements else None
-        rule_id = name.lower().replace(" ","-").replace("_",'-')
+        rule_id = name.lower().replace(" ", "-").replace("_", '-')
         read_only = elements['READ_ONLY'] if 'READ_ONLY' in elements else False
         hidden = elements['HIDDEN'] if 'HIDDEN' in elements else False
         disabled = elements['DISABLED'] if 'DISABLED' in elements else True
@@ -71,7 +71,8 @@ class CreateRuleTransformer(ConditionTransformer):
             function_name, function_params = get_function_meat(function_elements)
 
             if function_name in action_mapper:
-                query['actions'].append(action_mapper[function_name])
+                template = action_mapper[function_name](function_params)
+                query['actions'].append(template)
 
         return uri, method, query, status
 
@@ -115,4 +116,9 @@ class CreateRuleTransformer(ConditionTransformer):
         return 'PARAMS', args
 
     def param(self, args):
-        return args[0].type, args[0].value
+        type = args[0].type
+        if type == "ESCAPED_STRING":
+            value = args[0].value.replace("\"", "")
+        else:
+            value = args[0].value
+        return type, value

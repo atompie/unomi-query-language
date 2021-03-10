@@ -1,14 +1,14 @@
 action_mapper = {
-    "allEventToProfilePropertiesAction": {
+    "allEventToProfilePropertiesAction": lambda params: {
         "type": "allEventToProfilePropertiesAction",
         "parameterValues": {}
     },
-    "setPropertyAction": {
+    "setPropertyAction": lambda params: {
       "type": "setPropertyAction",
       "parameterValues": {
-        "setPropertyName": "properties(lastName)",
-        "setPropertyValue": "eventProperty::properties(lastName)",
-        "setPropertyStrategy": "alwaysSet"
+        "setPropertyName": "properties({})".format(params[0][1]),
+        "setPropertyValue": "eventProperty::properties({})".format(params[0][1]),
+        "setPropertyStrategy": params[1][1]
       }
     }
 }

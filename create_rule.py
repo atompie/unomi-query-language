@@ -15,7 +15,7 @@ t = p.parse(
     // DESCRIBE "Copies user data from events target properties to profile"
     IN SCOPE "kuptoo" 
     WHEN event:type="identify" 
-    THEN allEventToProfilePropertiesAction(param1,param2), setPropertyAction()
+    THEN allEventToProfilePropertiesAction(), setPropertyAction("profile:lastName()","alwaysSet")
     
     """
 )
