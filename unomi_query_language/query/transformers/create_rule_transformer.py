@@ -9,7 +9,7 @@ class CreateRuleTransformer(TransformerNamespace):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.namespace('unomi_query_language__query__grammar__uql_expr__', ConditionTransformer())
+        self.namespace('uql_expr__', ConditionTransformer())
 
     def create_rule(self, args):
 

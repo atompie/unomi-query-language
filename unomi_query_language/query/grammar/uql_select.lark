@@ -1,4 +1,4 @@
-%import .unomi_query_language.query.grammar.uql_expr (expr, NUMBER, WS, COMMENT_VALUE)
+%import .uql_expr (expr, NUMBER, WS, COMMENT_VALUE)
 
 // SELECT
 select: "SELECT"i FRESH? data_type where? offset? limit?
