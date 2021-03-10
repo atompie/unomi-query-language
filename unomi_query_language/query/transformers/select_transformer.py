@@ -1,3 +1,5 @@
+from lark import Token
+
 from unomi_query_language.query.mappers.uri_mapper import uri_mapper
 from unomi_query_language.query.template import nested_condition
 from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
@@ -54,4 +56,5 @@ class SelectTransformer(TransformerNamespace):
 
     def offset(self, args):
         return 'OFFSET', int(args[0]['value']['value'])
+
 

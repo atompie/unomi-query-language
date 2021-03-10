@@ -1,7 +1,7 @@
 import json
 
 from unomi_query_language.query.parser import Parser
-from unomi_query_language.query.grammar.grammars import create_rule, read
+from unomi_query_language.query.grammar.grammars import read
 from pprint import pprint
 
 from unomi_query_language.query.transformers.create_rule_transformer import CreateRuleTransformer
