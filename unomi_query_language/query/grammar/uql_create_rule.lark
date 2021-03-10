@@ -1,18 +1,14 @@
-%import .unomi_query_language.query.grammar.uql_expr (expr, NUMBER, ESCAPED_STRING, WS, COMMENT_VALUE)
+%import .uql_expr (expr, NUMBER, ESCAPED_STRING, WS, COMMENT_VALUE)
+%import .uql_meta (READ_ONLY, DISABLED, HIDDEN, NAME, describe, in_scope, with_tags)
 
 // CREATE RULE
-create_rule: "CREATE"i READ_ONLY? DISABLED? HIDDEN? data_type rule_name rule_describe? in_scope when then
+create_rule: "CREATE"i READ_ONLY? DISABLED? HIDDEN? data_type with_tags? NAME describe? in_scope when then
 
 data_type: /RULE/i
-READ_ONLY: "READONLY"i
-DISABLED: "DISABLED"i
-HIDDEN: "HIDDEN"i
-rule_name: ESCAPED_STRING
+
 when: "WHEN"i expr
 then: "THEN"i functions
 functions: [function ("," function)*]
-in_scope: "IN SCOPE"i ESCAPED_STRING
-rule_describe: "DESCRIBE"i ESCAPED_STRING
 function: function_name "(" params? ")"
 function_name: /[a-zA-z_0-9]+/
 params: [param ("," param)*]

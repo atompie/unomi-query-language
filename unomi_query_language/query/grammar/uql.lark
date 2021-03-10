@@ -1,9 +1,5 @@
-%import unomi_query_language.query.grammar.uql_select (select)
-%import unomi_query_language.query.grammar.uql_delete (delete)
-%import unomi_query_language.query.grammar.url_create_rule (create_rule)
-%import unomi_query_language.query.grammar.url_create_segment (create_segment)
+%import .uql_select (select)
+%import .uql_create_rule (create_rule)
 
 start: select
-    | delete
-    | create_rule
-    | create_segment
+    | url_create_rule

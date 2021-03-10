@@ -3,8 +3,7 @@ import json
 from unomi_query_language.query.parser import Parser
 from unomi_query_language.query.grammar.grammars import read
 from pprint import pprint
-
-from unomi_query_language.query.transformers.create_rule_transformer import CreateRuleTransformer
+from unomi_query_language.query.transformers.uql_transformer import UqlTransformer
 
 p = Parser(read('uql.lark'), start="start")
 t = p.parse(
@@ -20,7 +19,7 @@ t = p.parse(
 )
 
 print(t)
-r = CreateRuleTransformer().transform(t)
+r = UqlTransformer().transform(t)
 pprint(r)
 print(json.dumps(r[2]))
 

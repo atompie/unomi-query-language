@@ -7,7 +7,13 @@ from unomi_query_language.query.transformers.create_segment_transformer import C
 
 p = Parser(read('uql_create_segment.lark'), start='create_segment')
 t = p.parse(
-    "create segment \"At least 1 visit\" in scope \"dupa\" when profile:properties.nbOfVisits>=1"
+    """
+    CREATE SEGMENT 
+    WITH TAGS ["długa","bśćółęńć-"] 
+    "At least 1 visit"
+    DESCRIBE "Copies user data from events target properties to profile"
+    IN SCOPE \"dupa\" WHEN profile:properties.nbOfVisits>=1
+    """
 )
 
 print(t)
