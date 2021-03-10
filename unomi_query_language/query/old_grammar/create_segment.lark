@@ -1,6 +1,6 @@
-create_segment: "CREATE"i data_type create_name in_scope when
 
-%condition.lark%
+
+create_segment: "CREATE"i data_type create_name in_scope when
 
 data_type: /SEGMENT/i
 create_name: ESCAPED_STRING

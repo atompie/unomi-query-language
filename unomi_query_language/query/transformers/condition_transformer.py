@@ -8,28 +8,6 @@ class ConditionTransformer(ValueTransformer):
         super().__init__()
         self._cmp = operation_mapper
 
-    def is_null(self, args):
-
-        args = [
-            args[0],
-            {
-                'op': {
-                    'token': None,
-                    'unomi-op': self._cmp['is null'],
-                }
-            },
-            {
-                'value': {
-                    'token': None,
-                    'type': 'null',
-                    "unomi-type": 'propertyValue',
-                    'value': 'null'
-                }
-            }
-        ]
-
-        return self.condition(args)
-
     def and_expr(self, args):
         return "BOOLEAN-CONDITION", {
             "bool": "and",
@@ -42,10 +20,26 @@ class ConditionTransformer(ValueTransformer):
             "subConditions": args
         }
 
-    def between(self, args):
-        return self.condition(args)
+    def OP_FIELD(self, args):
 
-    def condition(self, args):
+        if ':' in args:
+            splited_args = args.split(":")
+            type = splited_args[0]
+            field = splited_args[1]
+            return {
+                'field': {
+                    'unomi-type': type,
+                    'field': field
+                }
+            }
+        else:
+            return {
+                'field': {
+                    'field': args.value
+                }
+            }
+
+    def op_condition(self, args):
 
         args = {
             'field': args[0]['field'],
@@ -55,49 +49,55 @@ class ConditionTransformer(ValueTransformer):
 
         return 'CONDITION', args
 
-    def exists(self, args):
+    def op_between(self, args):
+
+        args[1] = {
+            'op': {
+                'unomi-op': self._cmp['between'],
+            }
+        }
+
+        return self.op_condition(args)
+
+    def op_exists(self, args):
 
         args.append({'op': {
-            'token': 'exists',
             'unomi-op': self._cmp['exists'],
         }})
 
-        return self.condition(args)
+        return self.op_condition(args)
 
-    def not_exists(self, args):
+    def op_not_exists(self, args):
 
         args.append({'op': {
-            'token': 'exists',
             'unomi-op': self._cmp['not exists'],
         }})
 
-        return self.condition(args)
+        return self.op_condition(args)
 
-    def FIELD(self, args):
+    def op_is_null(self, args):
 
-        if ':' in args:
-            splited_args = args.split(":")
-            type = splited_args[0]
-            field = splited_args[1]
-            return {
-                'field': {
-                    'token': args,
-                    'unomi-type': type,
-                    'field': field
+        args = [
+            args[0],
+            {
+                'op': {
+                    'unomi-op': self._cmp['is null'],
+                }
+            },
+            {
+                'value': {
+                    'type': 'null',
+                    "unomi-type": 'propertyValue',
+                    'value': 'null'
                 }
             }
-        else:
-            return {
-                'field': {
-                    'token': args,
-                    'field': args.value
-                }
-            }
+        ]
+
+        return self.op_condition(args)
 
     def OP(self, args):
         return {
             'op': {
-                'token': args,
                 'unomi-op': self._cmp[str(args)],
             }
         }

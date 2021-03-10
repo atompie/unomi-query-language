@@ -1,11 +1,12 @@
 from unomi_query_language.query.mappers.uri_mapper import uri_mapper
 from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
+from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
 
 
-class DeleteTransformer(ConditionTransformer):
+class DeleteTransformer(TransformerNamespace):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def delete(self, args):
         elements = {k: v for k, v in args}

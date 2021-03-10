@@ -2,7 +2,7 @@ select: "SELECT"i FRESH? data_type where? offset? limit?
 
 %condition.lark%
 
-FRESH: "FRESH"i
+FRESH: " FRESH "i
 data_type: /(EVENT|RULE|PROFILE|SEGMENT|GOAL|SCORING|SESSION)/i
 offset: "OFFSET"i NUMBER
 limit: "LIMIT"i NUMBER

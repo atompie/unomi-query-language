@@ -2,12 +2,14 @@ from unomi_query_language.query.mappers.controllers.action_controller import act
 from unomi_query_language.query.mappers.uri_mapper import uri_mapper
 from unomi_query_language.query.template import nested_condition
 from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
+from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
 
 
-class CreateRuleTransformer(ConditionTransformer):
+class CreateRuleTransformer(TransformerNamespace):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.namespace('unomi_query_language__query__grammar__uql_expr__', ConditionTransformer())
 
     def create_rule(self, args):
 

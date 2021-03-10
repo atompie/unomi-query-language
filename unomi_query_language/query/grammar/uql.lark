@@ -1,0 +1,7 @@
+%import unomi_query_language.query.grammar.uql_select
+%import unomi_query_language.query.grammar.uql_delete
+%import unomi_query_language.query.grammar.url_create_rule
+%import unomi_query_language.query.grammar.url_expr
+
+COMMENT_VALUE: "//" /[^\n]/*
+%ignore COMMENT_VALUE

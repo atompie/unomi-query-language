@@ -1,12 +1,14 @@
 from unomi_query_language.query.mappers.uri_mapper import uri_mapper
 from unomi_query_language.query.template import nested_condition
 from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
+from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
 
 
-class SelectTransformer(ConditionTransformer):
+class SelectTransformer(TransformerNamespace):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.namespace('unomi_query_language__query__grammar__uql_expr__', ConditionTransformer())
 
     def select(self, args):
 
@@ -22,7 +24,7 @@ class SelectTransformer(ConditionTransformer):
 
         key = ('select', query_data_type)
         if key in uri_mapper:
-            uri, method = uri_mapper[key]
+            uri, method, status = uri_mapper[key]
         else:
             raise ValueError("Unknown {} {} syntax.".format(key[0], key[1]))
 
@@ -36,7 +38,7 @@ class SelectTransformer(ConditionTransformer):
         if condition:
             query['condition'] = condition
 
-        return uri, method, query
+        return uri, method, query, status
 
     def where(self, args):
         return args[0]

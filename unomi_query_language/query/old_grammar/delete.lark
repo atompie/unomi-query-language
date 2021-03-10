@@ -1,0 +1,12 @@
+delete: "DELETE"i data_type create_name
+
+%condition.lark%
+
+data_type: /(RULE|SEGMENT|PROFILE|GOAL|SCORING|SCOPE|CAMPAIGN)/i
+create_name: ESCAPED_STRING
+
+%import common.WS
+%ignore WS
+
+COMMENT_VALUE: "//" /[^\n]/*
+%ignore COMMENT_VALUE

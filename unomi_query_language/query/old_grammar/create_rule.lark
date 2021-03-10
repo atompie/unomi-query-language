@@ -1,6 +1,6 @@
 create_rule: "CREATE"i READ_ONLY? DISABLED? HIDDEN? data_type rule_name rule_describe? in_scope when then
 
-%condition.lark%
+// CREATE RULE
 
 data_type: /RULE/i
 READ_ONLY: "READONLY"i
@@ -20,8 +20,7 @@ param: ESCAPED_STRING
     | DOTTED_FIELD
 DOTTED_FIELD: /[a-zA-Z0-9\._\-:]+/
 
-%import common.WS
-%ignore WS
-
 COMMENT_VALUE: "//" /[^\n]/*
 %ignore COMMENT_VALUE
+
+%condition.lark%
