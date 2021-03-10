@@ -1,4 +1,7 @@
-from unomi_query_language.query.mappers.uri_mapper import uri_mapper
+from unomi_query_language.query.transformers.create_rule_transformer import CreateRuleTransformer
+from unomi_query_language.query.transformers.create_segment_transformer import CreateSegmentTransformer
+from unomi_query_language.query.transformers.delete_transformer import DeleteTransformer
+from unomi_query_language.query.transformers.select_transformer import SelectTransformer
 from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
 
 
@@ -6,26 +9,10 @@ class UqlTransformer(TransformerNamespace):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.namespace('uql_select', SelectTransformer())
+        self.namespace('uql_delete', DeleteTransformer())
+        self.namespace('url_create_rule', CreateRuleTransformer())
+        self.namespace('url_create_segment', CreateSegmentTransformer())
 
     def start(self, args):
-        elements = {k: v for k, v in args}
-
-        name = elements['NAME'] if 'NAME' in elements else None
-        query_data_type = elements['DATA_TYPE'] if 'DATA_TYPE' in elements else None
-
-        key = ('delete', query_data_type)
-        if key not in uri_mapper:
-            raise ValueError("Unknown {} {} syntax.".format(key[0], key[1]))
-
-        uri, method, status = uri_mapper[key]
-        uri = uri.replace('{item-id}', name)
-
-        query = {}
-
-        return uri, method, query, status
-
-    def data_type(self, args):
-        return 'DATA_TYPE', args[0].value.lower()
-
-    def create_name(self, args):
-        return 'NAME', str(args[0].value).strip("\"")
+        return args
