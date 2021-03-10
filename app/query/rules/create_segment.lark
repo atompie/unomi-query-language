@@ -10,5 +10,5 @@ in_scope: "IN SCOPE"i ESCAPED_STRING
 %import common.WS
 %ignore WS
 
-COMMENT_VALUE: "--" /[^\n]/*
+COMMENT_VALUE: "//" /[^\n]/*
 %ignore COMMENT_VALUE

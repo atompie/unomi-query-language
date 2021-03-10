@@ -8,5 +8,5 @@ offset: "OFFSET"i NUMBER
 limit: "LIMIT"i NUMBER
 where: "WHERE"i expr
 
-COMMENT_VALUE: "--" /[^\n]/*
+COMMENT_VALUE: "//" /[^\n]/*
 %ignore COMMENT_VALUE
