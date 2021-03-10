@@ -1,5 +1,5 @@
 %import .uql_common (ESCAPED_STRING, NUMBER, WS, COMMENT_VALUE)
-
+%import .uql_terminals (BETWEEN_TERMINAL, AND_TERMINAL, OR_TERMINAL)
 
 // CONDITIONS
 
@@ -15,17 +15,17 @@
         | op_dict
 ?and_expr: op_condition
         | "(" expr ")"
-        | and_expr " AND "i and_expr
+        | and_expr AND_TERMINAL and_expr
 ?or_expr: op_condition
         | "(" expr ")"
-        | or_expr " OR "i or_expr
+        | or_expr OR_TERMINAL or_expr
 ?op_condition: OP_FIELD OP op_value
         | op_exists
         | op_not_exists
         | op_between
         | op_is_null
 
-op_between: OP_FIELD /BETWEEN/i op_range
+op_between: OP_FIELD BETWEEN_TERMINAL op_range
 op_exists: OP_FIELD "exists"
 op_not_exists: OP_FIELD "not exists"
 op_is_null: OP_FIELD "IS NULL"i

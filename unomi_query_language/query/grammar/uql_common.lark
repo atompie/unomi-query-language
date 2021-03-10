@@ -2,5 +2,6 @@
 %import common.DECIMAL
 %import common.NUMBER
 %import common.WS
+%import common.NEWLINE
 
-COMMENT_VALUE: "//" /[^\n]/*
+COMMENT_VALUE: ("//"|"#") /[^\n]/*

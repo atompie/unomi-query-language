@@ -82,10 +82,10 @@ class CreateRuleTransformer(MetaTransformer):
         return uri, method, query, status
 
     def when(self, args):
-        return 'WHEN', args[0]
+        return 'WHEN', args[1]
 
     def then(self, args):
-        return 'THEN', args[0]
+        return 'THEN', args[1]
 
     def data_type(self, args):
         return 'DATA_TYPE', args[0].value.lower()

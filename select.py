@@ -6,7 +6,7 @@ from unomi_query_language.query.transformers.select_transformer import SelectTra
 
 p = Parser(read('uql_select.lark'), start='select')
 t = p.parse(
-    "select fresh event where properties.name=\"asasas\" and id=14.3 and id between 1 and 2"
+    "SELECT FRESH EVENT WHERE properties.name=\"asasas\" AND id=14.3 AND id BETWEEN 1 AND 2"
 )
 
 print(t)

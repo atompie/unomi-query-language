@@ -12,13 +12,13 @@ class ConditionTransformer(TransformerNamespace):
     def and_expr(self, args):
         return "BOOLEAN-CONDITION", {
             "bool": "and",
-            "subConditions": args
+            "subConditions": [args[0], args[2]]
         }
 
     def or_expr(self, args):
         return "BOOLEAN-CONDITION", {
             "bool": "or",
-            "subConditions": args
+            "subConditions": [args[0], args[2]]
         }
 
     def OP_FIELD(self, args):

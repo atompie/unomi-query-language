@@ -11,12 +11,14 @@ t = p.parse(
     """
     
     CREATE RULE 
-    // WITH TAGS ["długa","bśćółęńć-"] 
-    "if identify the event properties to profile" 
-    DESCRIBE "Copies user data from events target properties to profile"
-    IN SCOPE "kuptoo" 
-    WHEN event:type="identify" AND event:scope BETWEEN 1 AND 2 and event:scope is null and event:scope = [1,2.3]
-    THEN copyEventsToProfileProperties(), setProfilePropertyFromEvent("x","lastName")
+        // WITH TAGS ["długa","bśćółęńć-"] 
+        "if identify the event properties to profile" 
+        # DESCRIBE "Copies user data from events target properties to profile"
+        IN SCOPE "kuptoo" 
+        WHEN event:type="identify" AND event:scope BETWEEN 1 AND 2  
+            AND event:scope IS NULL AND event:scope = [1,2.3]
+        THEN 
+            copyEventsToProfileProperties(), setProfilePropertyFromEvent("prop","lastName")
     
     """
 )
