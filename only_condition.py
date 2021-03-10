@@ -6,7 +6,7 @@ from unomi_query_language.query.transformers.condition_transformer import Condit
 
 p = Parser(read('uql_expr.lark'), start='expr')
 t = p.parse(
-    "properties.name=\"asasas\" and id=14.3 and id between 1 and 2"
+    "properties.name=\"asasas\""
 )
 
 print(t)
