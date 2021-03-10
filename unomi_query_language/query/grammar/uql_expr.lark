@@ -26,8 +26,8 @@
         | op_is_null
 
 op_between: OP_FIELD BETWEEN_TERMINAL op_range
-op_exists: OP_FIELD "exists"
-op_not_exists: OP_FIELD "not exists"
+op_exists: OP_FIELD "EXISTS"i
+op_not_exists: OP_FIELD "NOT EXISTS"i
 op_is_null: OP_FIELD "IS NULL"i
 
 OP: /(!=|<=|>=|=>|=<|=|>|<)/
