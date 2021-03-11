@@ -1,26 +1,7 @@
 from unomi_query_language.query.mappers.condition_type_mapper import condition_mapper
 
 
-def nested_condition(condition_args, query_data_type):
-    for type, args in condition_args:
-        if type == 'CONDITION' and args:
-            return property_template(args, query_data_type)
-
-        if type == 'BOOLEAN-CONDITION' and args:
-            return boolean_condition(args, query_data_type)
-
-
-def boolean_condition(args, query_data_type):
-    return {
-        "type": "booleanCondition",
-        "parameterValues": {
-            "operator": args['bool'],
-            "subConditions": [nested_condition([sub_args], query_data_type) for sub_args in args['subConditions']]
-        }
-    }
-
-
-def property_template(args, query_data_type):
+def property_op_stmt(args, query_data_type):
     def check_field(field):
 
         # check allowed fields

@@ -41,7 +41,7 @@ class TransformerNamespace(Transformer):
                 if method:
                     return method
 
-            raise AttributeError(
+        raise AttributeError(
                 "Method `{}` not available in any of defined namespaces. Available namespaces are {}".format(item,
                                                                                                          self._namespaces))
 

@@ -6,7 +6,9 @@ from unomi_query_language.query.transformers.condition_transformer import Condit
 
 p = Parser(read('uql_expr.lark'), start='expr')
 t = p.parse(
-    "properties.name=\"asasas\""
+    """
+    properties.name="asasas" and funct() and a=1
+    """
 )
 
 print(t)

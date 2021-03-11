@@ -1,5 +1,6 @@
 from lark import Token
 from unomi_query_language.query.mappers.operation_mapper import operation_mapper
+from unomi_query_language.query.transformers.function_transformer import FunctionTransformer
 from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
 
 
@@ -8,6 +9,7 @@ class ConditionTransformer(TransformerNamespace):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._cmp = operation_mapper
+        self.namespace('uql_function__', FunctionTransformer())
 
     def and_expr(self, args):
         return "BOOLEAN-CONDITION", {

@@ -1,4 +1,4 @@
-%import .uql_common (NUMBER, ESCAPED_STRING)
+%import .uql_common (NUMBER, ESCAPED_STRING, WS)
 
 function: FUNCTION_NAME "(" params? ")"
 FUNCTION_NAME: /[a-zA-z_0-9]+/
@@ -7,3 +7,5 @@ param: ESCAPED_STRING
     | NUMBER
     | DOTTED_FIELD
 DOTTED_FIELD: /[a-zA-Z0-9\._\-:]+/
+
+%ignore WS

@@ -1,5 +1,6 @@
 %import .uql_common (ESCAPED_STRING, NUMBER, WS, COMMENT_VALUE)
 %import .uql_terminals (BETWEEN_TERMINAL, AND_TERMINAL, OR_TERMINAL)
+%import .uql_function (function)
 
 // CONDITIONS
 
@@ -24,6 +25,7 @@
         | op_not_exists
         | op_between
         | op_is_null
+        | function
 
 op_between: OP_FIELD BETWEEN_TERMINAL op_range
 op_exists: OP_FIELD "EXISTS"i

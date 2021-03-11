@@ -1,4 +1,5 @@
-%import .uql_expr (expr, NUMBER, ESCAPED_STRING, WS, COMMENT_VALUE)
+%import .uql_common (ESCAPED_STRING, NUMBER, WS, COMMENT_VALUE)
+%import .uql_expr (expr)
 %import .uql_meta (READ_ONLY, DISABLED, HIDDEN, NAME, describe, in_scope, with_tags)
 %import .uql_terminals (WHEN_TERMINAL, THEN_TERMINAL)
 %import .uql_function (function)

@@ -1,3 +1,4 @@
+from unomi_query_language.query.transformers.common_transformer import CommonTransformer
 from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
 
 
@@ -5,6 +6,7 @@ class FunctionTransformer(TransformerNamespace):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.namespace("uql_common__", CommonTransformer())
 
     def function(self, args):
         return 'FUNCTION', args
@@ -17,6 +19,11 @@ class FunctionTransformer(TransformerNamespace):
 
     def param(self, args):
         type = args[0].type
+
+        # remove namespace
+        if '__' in type:
+            type = type.split('__')[-1]
+
         if type == "ESCAPED_STRING":
             value = args[0].value.replace("\"", "")
         else:

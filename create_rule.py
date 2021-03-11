@@ -18,7 +18,7 @@ t = p.parse(
         WHEN event:type="identify" AND event:scope BETWEEN 1 AND 2  
             AND event:scope IS NULL AND event:scope = [1,2.3]
         THEN 
-            copyEventsToProfileProperties(), setProfilePropertyFromEvent("prop","lastName")
+            CopyEventsToProfileProperties(), SetProfilePropertyFromEvent("1","lastName")
     
     """
 )
@@ -26,5 +26,4 @@ t = p.parse(
 print(t)
 r = CreateRuleTransformer().transform(t)
 pprint(r)
-print(json.dumps(r[2]))
 

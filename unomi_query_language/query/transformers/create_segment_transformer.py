@@ -1,8 +1,7 @@
+from unomi_query_language.query.statement_templates.query_stmt_templates import create_segment_stmt, create_condition_stmt
 from unomi_query_language.query.mappers.uri_mapper import uri_mapper
-from unomi_query_language.query.template import nested_condition
 from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
 from unomi_query_language.query.transformers.meta_transformer import MetaTransformer
-from unomi_query_language.query.transformers.utils.meta_fields import MetaFields
 
 
 class CreateSegmentTransformer(MetaTransformer):
@@ -14,50 +13,16 @@ class CreateSegmentTransformer(MetaTransformer):
     def create_segment(self, args):
         elements = {k: v for k, v in args}
 
-        meta = MetaFields(elements)
-        name = meta.get_name()
-        describe = meta.get_descride()
-        hidden = meta.get_hidden()
-        disabled = meta.get_disabled()
-        read_only = meta.get_read_only()
-        tags = meta.get_tags()
-        scope = meta.get_in_scope()
-
-        segment_id = name.lower().replace(" ","-").replace("_",'-')
         query_data_type = elements['DATA_TYPE'] if 'DATA_TYPE' in elements else None
-        when_condition = elements['WHEN'] if 'WHEN' in elements else None
-
-        when_condition = {k: v for k, v in [when_condition]}
-        when_field_condition = when_condition['CONDITION'] if 'CONDITION' in when_condition else None
-        when_bool_condition = when_condition['BOOLEAN-CONDITION'] if 'BOOLEAN-CONDITION' in when_condition else None
-
-        condition = [('BOOLEAN-CONDITION', when_bool_condition), ('CONDITION', when_field_condition)]
-
         key = ('create', query_data_type)
         if key not in uri_mapper:
             raise ValueError("Unknown {} {} syntax.".format(key[0], key[1]))
 
         uri, method, status = uri_mapper[key]
 
-        query = {
-            "itemId": segment_id,
-            "itemType": "segment",
-            "metadata": {
-                "id": segment_id,
-                "name": name,
-                "description": describe,
-                "scope": scope,
-                "tags": tags,
-                "enabled": disabled,
-                "missingPlugins": False,
-                "hidden": hidden,
-                "readOnly": read_only
-            }
-        }
-
-        condition = nested_condition(condition, query_data_type)
-        if condition:
-            query['condition'] = condition
+        when_condition = elements['WHEN'] if 'WHEN' in elements else None
+        condition = create_condition_stmt(when_condition, query_data_type)
+        query = create_segment_stmt(elements, condition)
 
         return uri, method, query, status
 
