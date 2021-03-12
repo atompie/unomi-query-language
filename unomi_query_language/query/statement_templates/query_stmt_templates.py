@@ -1,4 +1,5 @@
-from unomi_query_language.query.statement_templates.condition_stmt_template import nested_condition_stmt
+from unomi_query_language.query.statement_templates.condition_stmt_template import nested_condition_stmt, \
+    match_all_condition_stmt
 from unomi_query_language.query.transformers.utils.meta_fields import MetaFields
 
 
@@ -81,6 +82,6 @@ def create_condition_stmt(condition, query_data_type):
 
         condition = [('BOOLEAN-CONDITION', bool_condition), ('CONDITION', field_condition)]
         return nested_condition_stmt(condition, query_data_type)
-    return {}
+    return match_all_condition_stmt()
 
 

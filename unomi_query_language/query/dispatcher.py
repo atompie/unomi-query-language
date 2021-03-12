@@ -1,4 +1,5 @@
 import requests
+
 requests.packages.urllib3.disable_warnings()
 
 
@@ -48,7 +49,6 @@ class RequestData:
         self.body = body
 
 
-
 class Dispatcher:
 
     def __init__(self, host: Host):
@@ -60,16 +60,14 @@ class Dispatcher:
         _host = str(self._host.uri(uri))
 
         if method == "GET":
-            return requests.get(_host, verify=False)
+            response = requests.get(_host, verify=False)
         elif method == "POST":
-            return requests.post(_host, json=body, verify=False)
+            response = requests.post(_host, json=body, verify=False)
         elif method == "DELETE":
-            return requests.delete(_host, json=body, verify=False)
+            response = requests.delete(_host, json=body, verify=False)
         elif method == "PUT":
-            return requests.put(_host, json=body, verify=False)
+            response = requests.put(_host, json=body, verify=False)
         else:
             raise ValueError("Unknown method {}".format(method))
 
-    def is_ok(self, response):
-        return response.status == self.expected_status
-
+        return response, self.expected_status

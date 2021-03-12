@@ -8,6 +8,7 @@ def copy_events_to_profile_properties_stmt(params):
 
     }
 
+
 # TODO not working
 def increment_profile_property_stmt(params):
     profile_value_type, profile_property_name = params[0]
@@ -21,6 +22,22 @@ def increment_profile_property_stmt(params):
         "type": "incrementInterestAction",
         "parameterValues": {
             "eventInterestProperty": profile_property_name
+        }
+    }
+
+
+def new_user_since(params):
+    since_value_type, since_property_value = params[0]
+
+    if since_value_type != "NUMBER":
+        raise ActionParamError(
+            "First param of action NewUserSince must be string. Type of `{}` given.".format(
+                since_value_type))
+
+    return {
+        "type": "newVisitorCondition",
+        "parameterValues": {
+            "since": since_property_value
         }
     }
 

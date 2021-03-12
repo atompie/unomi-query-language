@@ -1,0 +1,2 @@
+recursive-include unomi_query_language/query *
+recursive-include unomi_query_language/utils *

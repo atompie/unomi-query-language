@@ -1,4 +1,4 @@
-%import .unomi_query_language.query.grammar.uql_common (ESCAPED_STRING, WS, COMMENT_VALUE)
+%import .uql_common (ESCAPED_STRING, WS, COMMENT_VALUE)
 
 // DELETE
 delete: "DELETE"i data_type create_name

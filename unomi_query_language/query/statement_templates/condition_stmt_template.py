@@ -18,3 +18,10 @@ def boolean_condition_stmt(args, query_data_type):
             "subConditions": [nested_condition_stmt([sub_args], query_data_type) for sub_args in args['subConditions']]
         }
     }
+
+
+def match_all_condition_stmt():
+    return {
+        "type": "matchAllCondition",
+        "parameterValues": {}
+    }

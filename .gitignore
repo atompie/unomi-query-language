@@ -1,3 +1,7 @@
 venv/
+build/
+build.sh
+dist/
+unomi_query_language.egg-info/
 .idea
 

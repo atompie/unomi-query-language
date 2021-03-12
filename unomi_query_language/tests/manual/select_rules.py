@@ -11,7 +11,7 @@ p = Parser(read('uql_select.lark'), start='select')
 t = p.parse(
     """
     # SELECT EVENT WHERE event:type="view"
-    SELECT RULE WHERE scope="kuptoo"
+    SELECT RULE
     """
 )
 

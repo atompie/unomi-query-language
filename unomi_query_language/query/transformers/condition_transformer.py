@@ -196,3 +196,23 @@ class ConditionTransformer(TransformerNamespace):
                 'value': None
             }
         }
+
+    def OP_TIME(self, args):
+        value = int(args.value[:-1])
+        type = args.value[-1]
+        if type == "s":
+            value = value * 1000
+        elif type == 'h':
+            value = value * 1000 * 60
+        elif value == 'd':
+            value = value * 1000 * 60 * 24
+        else:
+            raise ValueError("Unknown time type {}.".format(type))
+
+        return {
+            'value': {
+                'unomi-type': "propertyValueInteger",
+                'type': 'number',
+                'value': value
+            }
+        }

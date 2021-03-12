@@ -29,13 +29,13 @@ t = p.parse(
     #     WHEN event:type="click"
     #     THEN SetProfilePropertyFromEvent("nbOfViews","nbOfViews")
         
-     CREATE RULE 
-        WITH TAGS ["analytics"] 
-        "Number of views" 
-        DESCRIBE "Increment view property in profile with every view event"
-        IN SCOPE "kuptoo" 
-        WHEN event:type="click"
-        THEN EventToProfileProperty("nbOfViews","nbOfViews1")
+     # CREATE RULE 
+     #    WITH TAGS ["analytics"] 
+     #    "Number of views" 
+     #    DESCRIBE "Increment view property in profile with every view event"
+     #    IN SCOPE "kuptoo" 
+     #    WHEN event:type="click"
+     #    THEN EventToProfileProperty("nbOfViews","nbOfViews1")
         
      # CREATE RULE 
      #    # WITH TAGS ["analytics"] 
@@ -45,7 +45,12 @@ t = p.parse(
      #    WHEN event:type="view"
      #    THEN IncrementProfileProperty("nbOfViews1")
         
-        
+    CREATE RULE 
+        "if identify event then copy event properties to profile" 
+        DESCRIBE "Copies user data from events target properties to profile"
+        IN SCOPE "my-site" 
+        WHEN event:type="identify" AND event:scope = "my-site"  
+        THEN CopyEventsToProfileProperties()
         
     """
 )

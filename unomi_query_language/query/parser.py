@@ -8,7 +8,7 @@ class Parser:
 
     def __init__(self, grammar, start, parser='earley', transformer=None):
         import_paths = [
-            'unomi_query_language/query/grammar'
+            os.path.join(_local_dir, '../../unomi_query_language/query/grammar')
         ]
         self.base_parser = Lark(grammar,
                                 start=start,

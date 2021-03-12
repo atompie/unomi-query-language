@@ -42,6 +42,7 @@ condition_mapper = {
     "session": {
         "condition": "sessionPropertyCondition",
         "fields": {
+            "duration": 'duration',
             'id': "itemId",
             'scope': "scope",
             'timestamp': 'timeStamp',

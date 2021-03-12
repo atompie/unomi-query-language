@@ -1,0 +1,31 @@
+"NOT properties.leadAssignedTo = \"adam\"": {
+  "parameterValues": {
+    "subConditions": [
+      {
+        "parameterValues": {
+          "propertyName": "properties.leadAssignedTo",
+      "propertyValue": "adam",
+          "comparisonOperator": "equals"
+        },
+        "type": "profilePropertyCondition"
+      }
+    ],
+    "operator": "and"
+  },
+  "type": "notCondition"
+}
+
+{
+    "type": "sessionPropertyCondition",
+    "parameterValues": {
+      "propertyName": "duration",
+      "comparisonOperator": "between",
+      "propertyValuesInteger": [
+        "script::minimumDuration*1000",
+        "script::maximumDuration*1000"
+      ]
+    }
+}
+
+sourceEventPropertyCondition
+newVisitorCondition
