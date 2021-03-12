@@ -48,18 +48,28 @@ class RequestData:
         self.body = body
 
 
+
 class Dispatcher:
 
     def __init__(self, host: Host):
         self._host = host
+        self.expected_status = 200
 
     def fetch(self, query):
-        _request = RequestData(*query)
-        _host = str(self._host.uri(_request.uri))
+        uri, method, body, self.expected_status = query
+        _host = str(self._host.uri(uri))
 
-        if _request.method == "GET":
+        if method == "GET":
             return requests.get(_host, verify=False)
-        elif _request.method == "POST":
-            return requests.post(_host, json=_request.body, verify=False)
+        elif method == "POST":
+            return requests.post(_host, json=body, verify=False)
+        elif method == "DELETE":
+            return requests.delete(_host, json=body, verify=False)
+        elif method == "PUT":
+            return requests.put(_host, json=body, verify=False)
         else:
-            raise ValueError("Unknown method {}".format(_request.method))
+            raise ValueError("Unknown method {}".format(method))
+
+    def is_ok(self, response):
+        return response.status == self.expected_status
+

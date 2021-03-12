@@ -1,4 +1,3 @@
-from unomi_query_language.query.mappers.controllers.action_controller import action_controller
 from unomi_query_language.query.statement_templates.condition_stmt_template import nested_condition_stmt
 from unomi_query_language.query.transformers.utils.meta_fields import MetaFields
 
@@ -15,17 +14,15 @@ def metadata_stmt(elements):
     scope = meta.get_in_scope()
 
     return {
-        "metadata": {
-            "id": segment_id,
-            "name": name,
-            "description": describe,
-            "scope": scope,
-            "tags": tags,
-            "enabled": disabled,
-            "missingPlugins": False,
-            "hidden": hidden,
-            "readOnly": read_only
-        }
+        "id": segment_id,
+        "name": name,
+        "description": describe,
+        "scope": scope,
+        "tags": tags,
+        "enabled": disabled,
+        "missingPlugins": False,
+        "hidden": hidden,
+        "readOnly": read_only
     }
 
 
@@ -49,7 +46,7 @@ def select_stmt(elements, condition):
 def create_segment_stmt(elements, condition):
     meta = metadata_stmt(elements)
     body = {
-        "itemId": meta['metadata']['id'],
+        "itemId": meta['id'],
         "itemType": "segment",
         "metadata": metadata_stmt(elements)
     }
@@ -62,7 +59,7 @@ def create_segment_stmt(elements, condition):
 def create_rule_stmt(elements, condition, actions):
     meta = metadata_stmt(elements)
     body = {
-        "itemId": meta['metadata']['id'],
+        "itemId": meta['id'],
         "itemType": "rule",
         "raiseEventOnlyOnceForProfile": False,
         "raiseEventOnlyOnceForSession": False,
@@ -77,26 +74,13 @@ def create_rule_stmt(elements, condition, actions):
 
 
 def create_condition_stmt(condition, query_data_type):
-    condition = {k: v for k, v in [condition]}
-    field_condition = condition['CONDITION'] if 'CONDITION' in condition else None
-    bool_condition = condition['BOOLEAN-CONDITION'] if 'BOOLEAN-CONDITION' in condition else None
+    if condition:
+        condition = {k: v for k, v in [condition]}
+        field_condition = condition['CONDITION'] if 'CONDITION' in condition else None
+        bool_condition = condition['BOOLEAN-CONDITION'] if 'BOOLEAN-CONDITION' in condition else None
 
-    condition = [('BOOLEAN-CONDITION', bool_condition), ('CONDITION', field_condition)]
-    return nested_condition_stmt(condition, query_data_type)
+        condition = [('BOOLEAN-CONDITION', bool_condition), ('CONDITION', field_condition)]
+        return nested_condition_stmt(condition, query_data_type)
+    return {}
 
 
-def create_action_stmt(actions):
-    def get_function_meta(elements):
-        function_elements = {k: v for k, v in elements}
-
-        function_name = function_elements['FUNCTION_NAME'] if 'FUNCTION_NAME' in function_elements else None
-        function_params = function_elements['PARAMS'] if 'PARAMS' in function_elements else None
-
-        return function_name, function_params
-
-    _actions = []
-    for function_elements in actions[1]:
-        function_name, function_params = get_function_meta(function_elements)
-        template = action_controller.run(function_name)(function_params)
-        _actions.append(template)
-    return _actions

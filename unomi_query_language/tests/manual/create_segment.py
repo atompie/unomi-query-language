@@ -12,7 +12,8 @@ t = p.parse(
     WITH TAGS ["długa","bśćółęńć-"] 
     "At least 1 visit"
     DESCRIBE "Copies user data from events target properties to profile"
-    IN SCOPE \"dupa\" WHEN profile:properties.nbOfVisits>=1
+    IN SCOPE \"dupa\" 
+    WHEN profile:properties.nbOfVisits>=1
     """
 )
 

@@ -1,5 +1,5 @@
-from unomi_query_language.query.statement_templates.actions_stmt_templates import set_profile_property_from_event_stmt, \
-    copy_events_to_profile_properties_stmt
+from unomi_query_language.query.statement_templates.action_stmt_template import copy_events_to_profile_properties_stmt, \
+    set_profile_property_from_event_stmt, increment_profile_property_stmt, event_to_profile_property_stmt
 
 action_mapper = {
     "CopyEventsToProfileProperties": {
@@ -9,6 +9,12 @@ action_mapper = {
         },
         "exec": copy_events_to_profile_properties_stmt
     },
+    "IncrementProfileProperty": {
+        "metadata": {
+
+        },
+        'exec': increment_profile_property_stmt
+    },
     "SetProfilePropertyFromEvent": {
         "metadata": {
             "description": "Copy selected property from event to profile property. " +
@@ -17,5 +23,12 @@ action_mapper = {
             "signature": "setProfilePropertyFromEvent(eventPropertyName, profilePropertyName [, op=\"equals\"])"
         },
         "exec": set_profile_property_from_event_stmt
-    }
+    },
+    "EventToProfileProperty": {
+        "metadata": {
+
+        },
+        'exec': event_to_profile_property_stmt
+    },
+
 }

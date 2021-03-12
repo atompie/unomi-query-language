@@ -10,5 +10,6 @@ operation_mapper = {
     '>': 'greaterThan',
     '<': 'lessThan',
     'is null': 'isNull',
-    'not exists': 'missing'
+    'not exists': 'missing',
+    'contains': 'contains'
 }

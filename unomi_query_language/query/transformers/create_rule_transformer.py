@@ -1,5 +1,5 @@
-from unomi_query_language.query.statement_templates.query_stmt_templates import create_rule_stmt, create_condition_stmt, \
-    create_action_stmt
+from unomi_query_language.query.statement_templates.query_stmt_templates import create_rule_stmt, create_condition_stmt
+from unomi_query_language.query.statement_templates.actions_stmt_templates import create_actions_group_stmt
 from unomi_query_language.query.mappers.uri_mapper import uri_mapper
 from unomi_query_language.query.transformers.common_transformer import CommonTransformer
 from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
@@ -14,6 +14,7 @@ class CreateRuleTransformer(MetaTransformer):
         self.namespace('uql_expr__', ConditionTransformer())
         self.namespace('uql_function__', FunctionTransformer())
         self.namespace('uql_common__', CommonTransformer())
+        self.namespace('uql_meta__', MetaTransformer())
 
     def create_rule(self, args):
 
@@ -30,7 +31,7 @@ class CreateRuleTransformer(MetaTransformer):
         condition = create_condition_stmt(when, query_data_type)
 
         then = elements['THEN'] if 'THEN' in elements else None
-        actions = create_action_stmt(then)
+        actions = create_actions_group_stmt(then)
         query = create_rule_stmt(elements, condition, actions)
 
         return uri, method, query, status

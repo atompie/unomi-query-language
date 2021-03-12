@@ -57,10 +57,10 @@ condition_mapper = {
         }
     },
     "rule": {
-        "condition": None,
+        "condition": 'eventPropertyCondition',
         "fields": {  # allowed fields
             'id': "itemId",
-            'scope': "scope",
+            'scope': "metadata.scope",
             'type': 'eventType',
             'timestamp': 'timeStamp',
             'profile.id': "profileId",
@@ -78,6 +78,7 @@ condition_mapper = {
             'properties': "properties",
             'segments': "segments",
             'scores': "scores",
+            "metadata": "metadata"
         }
     },
     "segment": {

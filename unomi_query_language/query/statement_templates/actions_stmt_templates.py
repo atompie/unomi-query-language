@@ -1,47 +1,31 @@
-from unomi_query_language.errors import ActionParamsError, ActionParamError
+from lark import Tree
+from lark.lexer import Token
+
+from unomi_query_language.query.mappers.controllers.action_controller import action_controller
 
 
-def copy_events_to_profile_properties_stmt(params):
-    return {
-        "type": "allEventToProfilePropertiesAction",
-        "parameterValues": {},
+def create_actions_group_stmt(actions):
+    def get_function_meta(elements):
 
-    }
+        if not isinstance(elements, list):
+            elements = [elements]
 
+        function_elements = {k: v for k, v in elements}
 
-def set_profile_property_from_event_stmt(params):
-    if 3 < len(params) or len(params) < 2:
-        raise ActionParamsError(
-            "Invalid number of parameters in action SetProfilePropertyFromEvent. Required parameters 2 or 3. Given {}".format(
-                len(params)))
+        function_name = function_elements['FUNCTION_NAME'] if 'FUNCTION_NAME' in function_elements else None
+        function_params = function_elements['PARAMS'] if 'PARAMS' in function_elements else None
 
-    if len(params) == 2:
-        params.append(('ESCAPED_STRING', 'alwaysSet'))
+        return function_name, function_params
 
-    profile_value_type, profile_property_name = params[0]
-    event_value_type, event_property_name = params[1]
-    op_value_type, op_property_name = params[2]
+    _actions = []
 
-    if profile_value_type != "ESCAPED_STRING":
-        raise ActionParamError(
-            "First param of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
-                profile_value_type))
+    if isinstance(actions, Tree):
+        actions = [actions.children]
+    elif isinstance(actions, Token):
+        actions = actions[1]
 
-    if event_value_type != "ESCAPED_STRING":
-        raise ActionParamError(
-            "Second param of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
-                event_value_type))
-
-    if op_value_type != "ESCAPED_STRING":
-        raise ActionParamError(
-            "Third param of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
-                op_value_type))
-
-    return {
-               "type": "setPropertyAction",
-               "parameterValues": {
-                   "setPropertyName": "properties({})".format(profile_property_name),
-                   "setPropertyValue": "eventProperty::properties({})".format(event_property_name),
-                   "setPropertyStrategy": op_property_name
-               }
-           },
+    for function_elements in actions:
+        function_name, function_params = get_function_meta(function_elements)
+        template = action_controller.run(function_name)(function_params)
+        _actions.append(template)
+    return _actions
