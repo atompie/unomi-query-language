@@ -40,7 +40,7 @@ class SelectTransformer(TransformerNamespace):
         return 'FRESH', args.value.lower()
 
     def limit(self, args):
-        return 'LIMIT', int(args[0]['value']['value'])
+        return 'LIMIT', int(args[0].value)
 
     def offset(self, args):
-        return 'OFFSET', int(args[0]['value']['value'])
+        return 'OFFSET', int(args[0].value)

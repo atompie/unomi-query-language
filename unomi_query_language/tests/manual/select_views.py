@@ -10,7 +10,7 @@ from unomi_query_language.query.transformers.select_transformer import SelectTra
 p = Parser(read('uql_select.lark'), start='select')
 t = p.parse(
     """
-    SELECT EVENT WHERE type="click"
+    SELECT EVENT OFFSET 10 LIMIT 100 
     """
 )
 
@@ -18,8 +18,8 @@ query = SelectTransformer().transform(t)
 print(query)
 host = Host('localhost', port=8181, protocol='http').credentials('karaf','karaf')
 dispatcher = Dispatcher(host)
-response = dispatcher.fetch(query)
-if response.status_code == 200:
+response, exp_code = dispatcher.fetch(query)
+if response.status_code == exp_code:
     pprint(json.loads(response.content))
 else:
     print(response.content)
