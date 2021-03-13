@@ -134,7 +134,7 @@ class ConditionTransformer(TransformerNamespace):
         return {
             'value': {
                 'type': 'number',
-                "unomi-type": 'propertyValueInteger',
+                "unomi-type": 'propertyValueDouble',
                 'value': float(args.value)
             }
         }
