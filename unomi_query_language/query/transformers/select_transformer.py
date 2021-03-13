@@ -28,7 +28,7 @@ class SelectTransformer(TransformerNamespace):
 
         query = select_stmt(elements, condition)
 
-        return uri, method, query, status
+        return query_data_type, uri, method, query, status
 
     def where(self, args):
         return 'WHERE', args[0]

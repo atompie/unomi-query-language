@@ -5,6 +5,7 @@ uri_mapper = {
     ('select', 'goal'):     ('cxs/goals/query/', 'POST', 200),
     ('select', 'segment'):  ('cxs/segments/query/', 'POST', 200),
     ('select', 'scoring'):  ('cxs/scoring/query/', 'POST', 200),
+    ('select', 'campaign'): ('cxs/campaigns/query', 'POST', 200),
     ('select', 'session'):  ('cxs/profiles/search/sessions/', 'POST', 200),
 
     ('create', 'segment'):  ('cxs/segments/', 'POST', 204),

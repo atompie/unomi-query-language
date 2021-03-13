@@ -24,7 +24,7 @@ class CreateSegmentTransformer(MetaTransformer):
         condition = create_condition_stmt(when_condition, query_data_type)
         query = create_segment_stmt(elements, condition)
 
-        return uri, method, query, status
+        return query_data_type, uri, method, query, status
 
     def when(self, args):
         return 'WHEN', args[0]

@@ -34,7 +34,7 @@ class CreateRuleTransformer(MetaTransformer):
         actions = create_actions_group_stmt(then)
         query = create_rule_stmt(elements, condition, actions)
 
-        return uri, method, query, status
+        return query_data_type, uri, method, query, status
 
     def when(self, args):
         return 'WHEN', args[1]

@@ -18,8 +18,8 @@ query = SelectTransformer().transform(t)
 print(query)
 host = Host('localhost', port=8181, protocol='http').credentials('karaf','karaf')
 dispatcher = Dispatcher(host)
-response = dispatcher.fetch(query)
-if response.status_code == 200:
+response, exp_status = dispatcher.fetch(query)
+if response.status_code == exp_status:
     pprint(json.loads(response.content))
 else:
     print(response.content)

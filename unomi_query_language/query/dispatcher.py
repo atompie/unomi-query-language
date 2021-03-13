@@ -56,7 +56,7 @@ class Dispatcher:
         self.expected_status = 200
 
     def fetch(self, query):
-        uri, method, body, self.expected_status = query
+        _, uri, method, body, self.expected_status = query
         _host = str(self._host.uri(uri))
 
         if method == "GET":

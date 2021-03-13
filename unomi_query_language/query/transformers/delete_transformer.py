@@ -23,7 +23,7 @@ class DeleteTransformer(TransformerNamespace):
 
         query = {}
 
-        return uri, method, query, status
+        return query_data_type, uri, method, query, status
 
     def data_type(self, args):
         return 'DATA_TYPE', args[0].value.lower()

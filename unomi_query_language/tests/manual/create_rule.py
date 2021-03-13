@@ -60,7 +60,7 @@ pprint(query)
 
 host = Host('localhost', port=8181, protocol='http').credentials('karaf','karaf')
 dispatcher = Dispatcher(host)
-response = dispatcher.fetch(query)
+response, _ = dispatcher.fetch(query)
 if response.status_code == 200:
     pprint(json.loads(response.content))
 else:
