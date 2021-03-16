@@ -21,6 +21,7 @@ condition_mapper = {
             'source': "source",
             'source.properties': "source.properties",
             'target': "target",
+            'profile': 'profile',
             'target.properties': "target.properties",
             'target.profile.properties': "target.profile.properties",
             'target.profile': "target.profile"

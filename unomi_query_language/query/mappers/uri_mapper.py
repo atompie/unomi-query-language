@@ -20,4 +20,6 @@ uri_mapper = {
     ('delete', 'scope'):    ('cxs/cluster/{item-id}', 'DELETE', 204),
     ('delete', 'campaign'): ('cxs/campaigns/{item-id}', 'DELETE', 204),
 
+    ('info', 'cluster'):    ('cxs/cluster', 'GET', 200)
+
 }
