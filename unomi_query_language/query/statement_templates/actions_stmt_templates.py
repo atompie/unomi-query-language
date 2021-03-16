@@ -21,7 +21,7 @@ def create_actions_group_stmt(actions):
 
     if isinstance(actions, Tree):
         actions = [actions.children]
-    elif isinstance(actions, Token):
+    else:
         actions = actions[1]
 
     for function_elements in actions:

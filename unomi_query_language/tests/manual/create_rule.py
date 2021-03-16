@@ -45,12 +45,19 @@ t = p.parse(
      #    WHEN event:type="view"
      #    THEN IncrementProfileProperty("nbOfViews1")
         
-    CREATE RULE 
-        "if identify event then copy event properties to profile" 
-        DESCRIBE "Copies user data from events target properties to profile"
-        IN SCOPE "my-site" 
-        WHEN event:type="identify" AND event:scope = "my-site"  
-        THEN CopyEventsToProfileProperties()
+    # CREATE RULE 
+    #     "if identify event then copy event properties to profile" 
+    #     DESCRIBE "Copies user data from events target properties to profile"
+    #     IN SCOPE "my-site" 
+    #     WHEN event:type="identify" AND event:scope = "my-site"  
+    #     THEN CopyEventsToProfileProperties()
+        
+    CREATE RULE " points with every purchase" 
+    DESCRIBE "Add points to loyalty cat with every purchase" 
+    IN SCOPE "site-1" 
+    WHEN  (scope="my-site1" OR scope="my-site2") AND event:type="view" 
+    THEN CopyEventsToProfileProperties(), CopyEventsToProfileProperties()
+
         
     """
 )
