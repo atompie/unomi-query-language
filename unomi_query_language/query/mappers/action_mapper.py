@@ -24,9 +24,9 @@ action_mapper = {
     "SetProfilePropertyValue": {
         "metadata": {
             "description": "Sets profile property to given value of type string, int, bool, list. " +
-                           "This function requires 3 parameters an profile property name, property value and " +
+                           "This function requires 3 parameters a profile property name, event property name and " +
                            "type of assignment (default is equals).",
-            "signature": "SetProfilePropertyValue(profilePropertyName:string, propertyValue, [, op=\"equals\"])"
+            "signature": "SetProfilePropertyValue(profilePropertyName:string, eventPropertyName:any, [, op=\"equals\"])"
         },
         "exec": set_profile_property_stmt
     },

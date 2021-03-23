@@ -41,7 +41,7 @@ def new_user_since(params):
         }
     }
 
-
+# this works
 def set_profile_property_from_event_stmt(params):
     if 3 < len(params) or len(params) < 2:
         raise ActionParamsError(
@@ -60,7 +60,7 @@ def set_profile_property_from_event_stmt(params):
             "First param of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
                 profile_value_type))
 
-    if event_value_type == "ESCAPED_STRING":
+    if event_value_type != "ESCAPED_STRING":
         raise ActionParamError(
             "Second param `{}` of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
                 event_property_name, event_value_type))

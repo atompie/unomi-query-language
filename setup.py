@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='unomi_query_language',
-    version='0.1.9',
+    version='0.1.10',
     description='Unomi Query Language library',
     long_description=long_description,
     long_description_content_type="text/markdown",
