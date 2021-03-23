@@ -12,11 +12,11 @@ uri_mapper = {
     ('create', 'rule'):     ('cxs/rules/', 'POST', 204),
     ('create', 'goal'):     ('cxs/goals/', 'POST', 204),
 
-    ('delete', 'segment'):  ('cxs/segments/{item-id}', 'DELETE', 200),
-    ('delete', 'rule'):     ('cxs/rules/{item-id}', 'DELETE', 200),
-    ('delete', 'profile'):  ('cxs/profiles/{item-id}', 'DELETE', 200),
-    ('delete', 'goal'):     ('cxs/goals/{item-id}', 'DELETE', 200),
-    ('delete', 'scoring'):  ('cxs/scorings/{item-id}', 'DELETE', 200),
+    ('delete', 'segment'):  ('cxs/segments/{item-id}', 'DELETE', 204),
+    ('delete', 'rule'):     ('cxs/rules/{item-id}', 'DELETE', 204),
+    ('delete', 'profile'):  ('cxs/profiles/{item-id}', 'DELETE', 204),
+    ('delete', 'goal'):     ('cxs/goals/{item-id}', 'DELETE', 204),
+    ('delete', 'scoring'):  ('cxs/scorings/{item-id}', 'DELETE', 204),
     ('delete', 'scope'):    ('cxs/cluster/{item-id}', 'DELETE', 204),
     ('delete', 'campaign'): ('cxs/campaigns/{item-id}', 'DELETE', 204),
 
