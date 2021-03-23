@@ -61,20 +61,42 @@ condition_mapper = {
     "rule": {
         "condition": 'eventPropertyCondition',
         "fields": {  # allowed fields
-            'id': "itemId",
-            'scope': "metadata.scope",
-            'type': 'eventType',
-            'timestamp': 'timeStamp',
-            'profile.id': "profileId",
-            'session.id': "sessionId",
-            'source.id': "source.itemId",
-            'target.id': "target.itemId",
-            'source.scope': "source.scope",
 
-            'target.scope': "target.scope",
+            # Event
+            'id': "itemId",
+            'event.id': "itemId",
+            'scope': "metadata.scope",
+            'event.scope': "metadata.scope",
+            'type': 'eventType',
+            'event.type': 'eventType',
+            'timestamp': 'timeStamp',
+            'event.timestamp': 'timeStamp',
+
+            # Profile
+            'profile.id': "profileId",
+
+            # Session
+            'session.id': "sessionId",
+
+            # Source
+            'source.id': "source.itemId",
+            'source.scope': "source.scope",
             'source.type': "source.itemType",
+
+            # Trager
+            'target.id': "target.itemId",
+            'target.scope': "target.scope",
             'target.type': "target.itemType",
             'target.profile.id': "target.profile.itemType",
+
+            # Original
+            'eventType': 'eventType',
+            'sessionId': "sessionId",
+            'profileId': "profileId",
+            'timeStamp': 'timeStamp',
+            'source.itemType': "source.itemType",
+            'target.itemType': "target.itemType",
+            'target.profile.itemType': "target.profile.itemType",
         },
         "namespaces": {
             'properties': "properties",
@@ -84,22 +106,44 @@ condition_mapper = {
         }
     },
     "segment": {
-        "condition": None,
+        "condition": 'profilePropertyCondition',
         "fields": {  # allowed fields
-            'id': "itemId",
-            'scope': "scope",
-            'type': 'eventType',
-            'timestamp': 'timeStamp',
-            'profile.id': "profileId",
-            'session.id': "sessionId",
-            'source.id': "source.itemId",
-            'target.id': "target.itemId",
-            'source.scope': "source.scope",
 
-            'target.scope': "target.scope",
+            # Event
+            'id': "itemId",
+            'event.id': "itemId",
+            'scope': "metadata.scope",
+            'event.scope': "metadata.scope",
+            'type': 'eventType',
+            'event.type': 'eventType',
+            'timestamp': 'timeStamp',
+            'event.timestamp': 'timeStamp',
+
+            # Profile
+            'profile.id': "profileId",
+
+            # Session
+            'session.id': "sessionId",
+
+            # Source
+            'source.id': "source.itemId",
+            'source.scope': "source.scope",
             'source.type': "source.itemType",
+
+            # Trager
+            'target.id': "target.itemId",
+            'target.scope': "target.scope",
             'target.type': "target.itemType",
             'target.profile.id': "target.profile.itemType",
+
+            # Original
+            'eventType': 'eventType',
+            'sessionId': "sessionId",
+            'profileId': "profileId",
+            'timeStamp': 'timeStamp',
+            'source.itemType': "source.itemType",
+            'target.itemType': "target.itemType",
+            'target.profile.itemType': "target.profile.itemType",
         },
         "namespaces": {
             'properties': "properties",

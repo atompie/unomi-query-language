@@ -52,11 +52,12 @@ t = p.parse(
     #     WHEN event:type="identify" AND event:scope = "my-site"  
     #     THEN CopyEventsToProfileProperties()
         
-    CREATE RULE " points with every purchase" 
-    DESCRIBE "Add points to loyalty cat with every purchase" 
-    IN SCOPE "site-1" 
-    WHEN  (scope="my-site1" OR scope="my-site2") AND event:type="view" 
-    THEN CopyEventsToProfileProperties(), CopyEventsToProfileProperties()
+    CREATE RULE "Example: add to list" 
+    DESCRIBE "Uses AddToProfilePropertyList" 
+    IN SCOPE "site-1" WHEN event:type="add" 
+    THEN RemoveFromProfileProperty("listOfA","b")
+
+
 
         
     """

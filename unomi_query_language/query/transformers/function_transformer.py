@@ -1,3 +1,5 @@
+from lark import Tree, Token
+
 from unomi_query_language.query.transformers.common_transformer import CommonTransformer
 from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
 
@@ -18,14 +20,22 @@ class FunctionTransformer(TransformerNamespace):
         return 'PARAMS', args
 
     def param(self, args):
-        type = args[0].type
 
-        # remove namespace
-        if '__' in type:
-            type = type.split('__')[-1]
+        if isinstance(args[0], Tree):
+            values = args[0].children
+            return "ARRAY", values
 
-        if type == "ESCAPED_STRING":
-            value = args[0].value.replace("\"", "")
-        else:
-            value = args[0].value
-        return type, value
+        elif isinstance(args[0], Token):
+            value = args[0]
+
+            type = value.type
+
+            # remove namespace
+            if '__' in type:
+                type = type.split('__')[-1]
+
+            if type == "ESCAPED_STRING":
+                value = args[0].value.replace("\"", "")
+            else:
+                value = args[0].value
+            return type, value

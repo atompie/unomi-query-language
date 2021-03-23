@@ -4,4 +4,9 @@
 %import common.WS
 %import common.NEWLINE
 
+value: DECIMAL
+        | NUMBER
+        | ESCAPED_STRING
+array: "[" [value ("," value)*] "]"
+
 COMMENT_VALUE: ("//"|"#") /[^\n]/*

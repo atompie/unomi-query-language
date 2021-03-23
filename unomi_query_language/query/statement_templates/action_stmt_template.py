@@ -51,8 +51,8 @@ def set_profile_property_from_event_stmt(params):
     if len(params) == 2:
         params.append(('ESCAPED_STRING', 'alwaysSet'))
 
-    event_value_type, event_property_name = params[0]
-    profile_value_type, profile_property_name = params[1]
+    profile_value_type, profile_property_name = params[0]
+    event_value_type, event_property_name = params[1]
     op_value_type, op_property_name = params[2]
 
     if profile_value_type != "ESCAPED_STRING":
@@ -62,8 +62,8 @@ def set_profile_property_from_event_stmt(params):
 
     if event_value_type == "ESCAPED_STRING":
         raise ActionParamError(
-            "Second param of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
-                event_value_type))
+            "Second param `{}` of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
+                event_property_name, event_value_type))
 
     if op_value_type != "ESCAPED_STRING":
         raise ActionParamError(
@@ -80,6 +80,27 @@ def set_profile_property_from_event_stmt(params):
     }
 
 
+# This one works
+def add_to_profile_property_stmt(params):
+    op = ('ESCAPED_STRING', 'addValue')
+    if len(params) == 2:
+        params.append(op)
+    else:
+        params[2] = op
+    return set_profile_property_stmt(params)
+
+
+# This one not working
+def remove_from_profile_property_stmt(params):
+    op = ('ESCAPED_STRING', 'remove')
+    if len(params) == 2:
+        params.append(op)
+    else:
+        params[2] = op
+    return set_profile_property_stmt(params)
+
+
+# is working
 def set_profile_property_stmt(params):
     if 3 < len(params) or len(params) < 2:
         raise ActionParamsError(
@@ -120,6 +141,7 @@ def set_profile_property_stmt(params):
         "type": "setPropertyAction",
         "parameterValues": {
             "setPropertyName": "properties({})".format(profile_property_name),
+            # "setPropertyName": profile_property_name,
             set_property_value: property_value,
             "setPropertyStrategy": op_property_name
         }
@@ -150,5 +172,28 @@ def profile_property_equals_event_property_stmt(params):
         "parameterValues": {
             "eventPropertyName": event_property_name,
             "profilePropertyName": profile_property_name,
+        }
+    }
+
+
+def _add_to_profile_property_list_stmt(params):
+    if len(params) != 1:
+        raise ActionParamsError(
+            "Invalid number of parameters in action AddToProfilePropertyList. Required parameters 1. Given {}".format(
+                len(params)))
+
+    list_identifier_type, list_identifier_name = params[0]
+
+    if list_identifier_type != "ARRAY":
+        raise ActionParamError(
+            "First param of action AddToProfilePropertyList must be `ARRAY`. Type of `{}` given.".format(
+                list_identifier_type))
+
+    array_string = [v for t, v in list_identifier_name]
+
+    return {
+        "type": "addToListAction",
+        "parameterValues": {
+            "listIdentifiers": array_string
         }
     }
