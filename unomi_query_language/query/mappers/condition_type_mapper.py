@@ -109,8 +109,11 @@ condition_mapper = {
         "condition": 'profilePropertyCondition',
         "fields": {  # allowed fields
 
+            # Segment
+            'id': "itemId",
+            'segment.id': "itemId",
+
             # Profile
-            'profile.id': "itemId",
             'profile.properties': "properties",
 
             # Original

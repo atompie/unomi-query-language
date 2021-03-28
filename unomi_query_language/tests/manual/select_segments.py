@@ -10,7 +10,7 @@ from unomi_query_language.query.transformers.select_transformer import SelectTra
 p = Parser(read('uql_select.lark'), start='select')
 t = p.parse(
     """
-    SELECT SEGMENT WHERE scope="frequent-customers"
+    SELECT EVENT WHERE timestamp>"2021-03-27 20:42:02"
     """
 )
 

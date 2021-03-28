@@ -92,12 +92,53 @@ def add_to_profile_property_stmt(params):
 
 # This one not working
 def remove_from_profile_property_stmt(params):
-    op = ('ESCAPED_STRING', 'remove')
-    if len(params) == 2:
-        params.append(op)
+    if len(params) != 2:
+        raise ActionParamsError(
+            "Invalid number of parameters in action RemoveFromProfileProperty. Required parameters 2. Given {}".format(
+                len(params)))
+
+    if not params[0][1].startswith('properties.'):
+        raise ActionParamsError(
+            "Property name of RemoveFromProfileProperty must start with `properties.`. Given {}".format(
+                params[0][1]))
+
+    params.append(('ESCAPED_STRING', 'remove'))
+
+    profile_property_name_type, profile_property_name = params[0]
+    property_value_type, property_value = params[1]
+    op_value_type, op_property_name = params[2]
+
+    if profile_property_name_type != "ESCAPED_STRING":
+        raise ActionParamError(
+            "First param of action SetProfilePropertyValue must be string. Type of `{}` given.".format(
+                profile_property_name_type))
+
+    if property_value_type == "ESCAPED_STRING":
+        set_property_value = "setPropertyValue"
+    elif property_value_type == "NUMBER":
+        set_property_value = "setPropertyValueInteger"
+    elif property_value_type == "array":
+        set_property_value = "setPropertyValueMultiple"
+    elif property_value_type == "BOOL":
+        set_property_value = "setPropertyValueBoolean"
     else:
-        params[2] = op
-    return set_profile_property_stmt(params)
+        raise ActionParamError(
+            "Second param of action SetProfilePropertyValue must be string or number or array or bool. Type of `{}` given.".format(
+                property_value_type))
+
+    if op_value_type != "ESCAPED_STRING":
+        raise ActionParamError(
+            "Third param of action SetProfilePropertyValue must be string. Type of `{}` given.".format(
+                op_value_type))
+
+    return {
+        "type": "setPropertyAction",
+        "parameterValues": {
+            "setPropertyName": profile_property_name,
+            set_property_value: property_value,
+            "setPropertyStrategy": op_property_name
+        }
+    }
 
 
 # is working

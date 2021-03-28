@@ -51,7 +51,12 @@ t = p.parse(
     #     IN SCOPE "my-site" 
     #     WHEN event:type="identify" AND event:scope = "my-site"  
     #     THEN CopyEventsToProfileProperties()
-        
+    
+    # CREATE RULE "Example: add to list" 
+    # DESCRIBE "Uses AddToProfilePropertyList" 
+    # IN SCOPE "site-1" WHEN event:type="add" 
+    # THEN AddToProfileProperty("properties.listOfA","b")
+    
     CREATE RULE "Example: add to list" 
     DESCRIBE "Uses AddToProfilePropertyList" 
     IN SCOPE "site-1" WHEN event:type="add" 

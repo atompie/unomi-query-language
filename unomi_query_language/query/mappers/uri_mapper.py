@@ -1,7 +1,7 @@
 uri_mapper = {
     ('select', 'event'):    ('cxs/events/search', 'POST', 200),
     ('select', 'profile'):  ('cxs/profiles/search/', 'POST', 200),
-    ('select', 'rule'):     ('cxs/rules/query/', 'POST', 200),
+    ('select', 'rule'):     ('cxs/rules/query/detailed', 'POST', 200),
     ('select', 'goal'):     ('cxs/goals/query/', 'POST', 200),
     ('select', 'segment'):  ('cxs/segments/query/', 'POST', 200),
     ('select', 'scoring'):  ('cxs/scoring/query/', 'POST', 200),
@@ -12,7 +12,7 @@ uri_mapper = {
     ('create', 'rule'):     ('cxs/rules/', 'POST', 204),
     ('create', 'goal'):     ('cxs/goals/', 'POST', 204),
 
-    ('delete', 'segment'):  ('cxs/segments/{item-id}', 'DELETE', 204),
+    ('delete', 'segment'):  ('cxs/segments/{item-id}', 'DELETE', 200),
     ('delete', 'rule'):     ('cxs/rules/{item-id}', 'DELETE', 204),
     ('delete', 'profile'):  ('cxs/profiles/{item-id}', 'DELETE', 204),
     ('delete', 'goal'):     ('cxs/goals/{item-id}', 'DELETE', 204),
