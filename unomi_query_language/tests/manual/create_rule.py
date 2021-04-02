@@ -60,11 +60,8 @@ t = p.parse(
     CREATE RULE "Example: add to list" 
     DESCRIBE "Uses AddToProfilePropertyList" 
     IN SCOPE "site-1" WHEN event:type="add" 
-    THEN RemoveFromProfileProperty("listOfA","b")
+    THEN RemoveFromProfileProperty("list","b")
 
-
-
-        
     """
 )
 

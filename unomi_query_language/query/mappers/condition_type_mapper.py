@@ -97,6 +97,8 @@ condition_mapper = {
             'source.itemType': "source.itemType",
             'target.itemType': "target.itemType",
             'target.profile.itemType': "target.profile.itemType",
+            'version': 'version',
+            'priority': 'priority'
         },
         "namespaces": {
             'properties': "properties",

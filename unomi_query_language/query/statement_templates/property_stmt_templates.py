@@ -1,22 +1,23 @@
 from unomi_query_language.query.mappers.condition_type_mapper import condition_mapper
 
 
+def check_field(field, data_type):
+    # check allowed fields
+
+    allowed_fields = condition_mapper[data_type]['fields']
+
+    if field not in allowed_fields:
+        #  maybe it in allowed namespace
+        allowed_namespaces = condition_mapper[data_type]['namespaces']
+        for namespace in allowed_namespaces:
+            if field[:len(namespace)] == namespace:
+                return field
+        return None
+
+    return allowed_fields[field]
+
+
 def property_op_stmt(args, query_data_type):
-    def check_field(field):
-
-        # check allowed fields
-
-        allowed_fields = condition_mapper[data_type]['fields']
-
-        if field not in allowed_fields:
-            #  maybe it in allowed namespace
-            allowed_namespaces = condition_mapper[data_type]['namespaces']
-            for namespace in allowed_namespaces:
-                if field[:len(namespace)] == namespace:
-                    return field
-            return None
-
-        return allowed_fields[field]
 
     # find data type. It can be form query of field.
     data_type = args['field']['unomi-type'] if 'unomi-type' in args['field'] else query_data_type
@@ -28,7 +29,7 @@ def property_op_stmt(args, query_data_type):
 
     # check allowed fields
 
-    field = check_field(args['field']['field'])
+    field = check_field(args['field']['field'], data_type)
     if not field:
         query_field = args['field']['field']
         allowed_fields = list(condition_mapper[data_type]['fields'].keys())

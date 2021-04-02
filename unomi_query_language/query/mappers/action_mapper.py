@@ -31,7 +31,7 @@ action_mapper = {
         "exec": set_profile_property_stmt
     },
     # This one works
-    "AddToProfileProperty": {
+    "AddToProfileListProperty": {
         "metadata": {
             "description": "Add value to profile property. Property must be array and be of the same type as value. " +
                            "This function requires 2 parameters a profile property name and property value to add.",

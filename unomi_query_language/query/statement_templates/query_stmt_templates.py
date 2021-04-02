@@ -27,7 +27,7 @@ def metadata_stmt(elements):
     }
 
 
-def select_stmt(elements, condition):
+def select_stmt(elements, condition, sort):
     fresh = elements['FRESH'] if 'FRESH' in elements else False
     offset = elements['OFFSET'] if 'OFFSET' in elements else 0
     limit = elements['LIMIT'] if 'LIMIT' in elements else 20
@@ -40,6 +40,9 @@ def select_stmt(elements, condition):
 
     if condition:
         body['condition'] = condition
+
+    if sort:
+        body['sortby'] = sort
 
     return body
 
