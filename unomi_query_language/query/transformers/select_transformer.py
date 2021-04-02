@@ -15,6 +15,9 @@ class SelectTransformer(TransformerNamespace):
         self.namespace('uql_expr__', ConditionTransformer())
         self.namespace('uql_sort__', SortTransformer())
 
+    def expr(self, args):
+        return args
+
     def _to_tuple(self, args):
         for data in args:
             if isinstance(data, Tree):

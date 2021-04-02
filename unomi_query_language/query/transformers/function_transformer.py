@@ -25,3 +25,6 @@ class FunctionTransformer(TransformerNamespace):
             args = args[0].children
 
         return args[0]
+
+    def value(self, args):
+        return args[0]

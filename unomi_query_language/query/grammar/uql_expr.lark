@@ -1,10 +1,10 @@
-%import .uql_common (ESCAPED_STRING, NUMBER, WS, COMMENT_VALUE)
+%import .uql_common (ESCAPED_STRING, NUMBER, WS, COMMENT_VALUE, compound_value)
 %import .uql_terminals (BETWEEN_TERMINAL, AND_TERMINAL, OR_TERMINAL)
 %import .uql_function (function)
 
 // CONDITIONS
 
-?expr: and_expr
+expr: and_expr
         | or_expr
 ?op_value: OP_INTEGER
         | OP_FLOAT

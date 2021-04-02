@@ -78,7 +78,9 @@ def create_rule_stmt(elements, condition, actions):
 
 def create_condition_stmt(condition, query_data_type):
     if condition:
-        condition = {k: v for k, v in [condition]}
+        if not isinstance(condition, list):
+            condition = [condition]
+        condition = {k: v for k, v in condition}
         field_condition = condition['CONDITION'] if 'CONDITION' in condition else None
         bool_condition = condition['BOOLEAN-CONDITION'] if 'BOOLEAN-CONDITION' in condition else None
 

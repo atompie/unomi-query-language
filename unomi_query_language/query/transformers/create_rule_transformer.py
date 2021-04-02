@@ -46,6 +46,12 @@ class CreateRuleTransformer(MetaTransformer):
         return 'DATA_TYPE', args[0].value.lower()
 
     def functions(self, args):
-        return 'FUNCTIONS', [arg.children for arg in args]
+        return 'FUNCTIONS', args
+
+    def function(self, args):
+        return args
+
+    def expr(self, args):
+        return args
 
 

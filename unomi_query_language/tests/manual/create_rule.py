@@ -64,8 +64,8 @@ t = p.parse(
     
     CREATE RULE "Example: add to list" 
     DESCRIBE "Uses AddToProfilePropertyList" 
-    IN SCOPE "site-1" WHEN event:type="add" 
-    THEN unomi:SetProperty(event.x,Date("now"))
+    IN SCOPE "site-1" WHEN event:type="add" and event:type=Date("now")
+    THEN unomi:SetProperty(event.x,Date("now")), unomi:SetProperty(event.x,Date("now"))
 
     """
 )

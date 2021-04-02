@@ -12,6 +12,9 @@ class ConditionTransformer(TransformerNamespace):
         self._cmp = operation_mapper
         self.namespace('uql_function__', FunctionTransformer())
 
+    def expr(self, args):
+        return args
+
     def and_expr(self, args):
         return "BOOLEAN-CONDITION", {
             "bool": "and",

@@ -1,4 +1,4 @@
-from lark import Tree
+from lark import Tree, Token
 from ..mappers.controllers.action_controller import action_controller
 
 
@@ -17,10 +17,7 @@ def create_actions_group_stmt(actions):
 
     _actions = []
 
-    if isinstance(actions, Tree):
-        actions = [actions.children]
-    else:
-        actions = actions[1]
+    actions = actions[1]
 
     for function_elements in actions:
         function_name, function_params = get_function_meta(function_elements)
