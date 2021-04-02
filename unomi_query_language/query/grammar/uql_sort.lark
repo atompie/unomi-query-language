@@ -1,6 +1,6 @@
 %import .uql_common (WS, COMMENT_VALUE)
 
-sort: "SORT BY" [sort_expr ("," sort_expr)*]
+sort: "SORT BY"i [sort_expr ("," sort_expr)*]
 sort_expr: SORT_FIELD DIR
 
 DIR: /(ASC|DESC)/i

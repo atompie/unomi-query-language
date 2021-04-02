@@ -1,4 +1,4 @@
-from unomi_query_language.errors import ActionParamsError, ActionParamError
+from ...errors import ActionParamsError, ActionParamError
 
 
 def copy_events_to_profile_properties_stmt(params):

@@ -1,5 +1,5 @@
-from unomi_query_language.errors import MappingActionError
-from unomi_query_language.query.mappers.action_mapper import action_mapper
+from ....errors import MappingActionError
+from ..action_mapper import action_mapper
 
 
 class ActionController:

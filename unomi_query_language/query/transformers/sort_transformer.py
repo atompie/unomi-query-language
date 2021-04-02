@@ -1,5 +1,5 @@
-from query.transformers.common_transformer import CommonTransformer
-from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
+from .common_transformer import CommonTransformer
+from .transformer_namespace import TransformerNamespace
 
 
 class SortTransformer(TransformerNamespace):

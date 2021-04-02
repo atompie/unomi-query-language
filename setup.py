@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='unomi_query_language',
-    version='0.1.16',
+    version='0.1.20',
     description='Unomi Query Language library',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -14,7 +14,8 @@ setup(
     packages=['unomi_query_language'],
     install_requires=[
         'requests',
-        'lark'
+        'lark',
+        'dateparser'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

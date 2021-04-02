@@ -1,7 +1,5 @@
 from lark import Tree
-from lark.lexer import Token
-
-from unomi_query_language.query.mappers.controllers.action_controller import action_controller
+from ..mappers.controllers.action_controller import action_controller
 
 
 def create_actions_group_stmt(actions):

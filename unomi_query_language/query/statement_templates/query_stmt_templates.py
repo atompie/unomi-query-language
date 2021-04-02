@@ -1,6 +1,5 @@
-from unomi_query_language.query.statement_templates.condition_stmt_template import nested_condition_stmt, \
-    match_all_condition_stmt
-from unomi_query_language.query.transformers.utils.meta_fields import MetaFields
+from .condition_stmt_template import nested_condition_stmt, match_all_condition_stmt
+from ..transformers.utils.meta_fields import MetaFields
 
 
 def metadata_stmt(elements):

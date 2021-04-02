@@ -62,48 +62,22 @@ condition_mapper = {
         "condition": 'eventPropertyCondition',
         "fields": {  # allowed fields
 
-            # Event
             'id': "itemId",
-            'event.id': "itemId",
-            'scope': "metadata.scope",
-            'event.scope': "metadata.scope",
-            'type': 'eventType',
-            'event.type': 'eventType',
-            'timestamp': 'timeStamp',
-            'event.timestamp': 'timeStamp',
-
-            # Profile
-            'profile.id': "profileId",
-
-            # Session
-            'session.id': "sessionId",
-
-            # Source
-            'source.id': "source.itemId",
-            'source.scope': "source.scope",
-            'source.type': "source.itemType",
-
-            # Trager
-            'target.id': "target.itemId",
-            'target.scope': "target.scope",
-            'target.type': "target.itemType",
-            'target.profile.id': "target.profile.itemType",
+            'type': 'itemType',
+            'name': 'metadata.name',
+            'description': 'metadata.description',
+            'scope': 'metadata.scope',
+            'tag': 'metadata.tags',
+            'system.tag': 'metadata.systemTags',
 
             # Original
-            'eventType': 'eventType',
-            'sessionId': "sessionId",
-            'profileId': "profileId",
-            'timeStamp': 'timeStamp',
-            'source.itemType': "source.itemType",
-            'target.itemType': "target.itemType",
-            'target.profile.itemType': "target.profile.itemType",
+            'itemId': 'itemId',
+            'itemType': 'itemType',
             'version': 'version',
-            'priority': 'priority'
+            'priority': 'priority',
+            'linkedItems': 'linkedItems'
         },
         "namespaces": {
-            'properties': "properties",
-            'segments': "segments",
-            'scores': "scores",
             "metadata": "metadata"
         }
     },

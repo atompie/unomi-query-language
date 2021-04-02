@@ -1,4 +1,4 @@
-from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
+from .transformer_namespace import TransformerNamespace
 
 
 class CommonTransformer(TransformerNamespace):

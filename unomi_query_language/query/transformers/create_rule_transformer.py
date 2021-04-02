@@ -1,10 +1,10 @@
-from unomi_query_language.query.statement_templates.query_stmt_templates import create_rule_stmt, create_condition_stmt
-from unomi_query_language.query.statement_templates.actions_stmt_templates import create_actions_group_stmt
-from unomi_query_language.query.mappers.uri_mapper import uri_mapper
-from unomi_query_language.query.transformers.common_transformer import CommonTransformer
-from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
-from unomi_query_language.query.transformers.function_transformer import FunctionTransformer
-from unomi_query_language.query.transformers.meta_transformer import MetaTransformer
+from ..statement_templates.query_stmt_templates import create_rule_stmt, create_condition_stmt
+from ..statement_templates.actions_stmt_templates import create_actions_group_stmt
+from ..mappers.uri_mapper import uri_mapper
+from .common_transformer import CommonTransformer
+from .condition_transformer import ConditionTransformer
+from .function_transformer import FunctionTransformer
+from .meta_transformer import MetaTransformer
 
 
 class CreateRuleTransformer(MetaTransformer):

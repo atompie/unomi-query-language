@@ -1,7 +1,7 @@
 from lark import Tree, Token
 
-from unomi_query_language.query.transformers.common_transformer import CommonTransformer
-from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
+from .common_transformer import CommonTransformer
+from .transformer_namespace import TransformerNamespace
 
 
 class FunctionTransformer(TransformerNamespace):

@@ -2,6 +2,7 @@ from lark import Token
 from unomi_query_language.query.mappers.operation_mapper import operation_mapper
 from unomi_query_language.query.transformers.function_transformer import FunctionTransformer
 from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
+import dateparser
 
 
 class ConditionTransformer(TransformerNamespace):
@@ -21,6 +22,31 @@ class ConditionTransformer(TransformerNamespace):
         return "BOOLEAN-CONDITION", {
             "bool": "or",
             "subConditions": [args[0], args[2]]
+        }
+
+    def op_value_type(self, args):
+        return args[0].value
+
+    def op_compound_value(self, args):
+
+        value = args[1].value
+        value_type = args[0].lower()
+        unomi_type = 'propertyValue'
+        if value_type == 'date':
+            date = dateparser.parse(value)
+            if not date:
+                raise ValueError("Could not parse date `{}`".format(value))
+            value = date.strftime("%Y-%m-%dT%H:%M:%SZ")
+            unomi_type = "propertyValueDate"
+        else:
+            raise ValueError("Unknown parse function `{}`".format(value_type))
+
+        return {
+            'value': {
+                'type': value_type,
+                "unomi-type": unomi_type,
+                'value': value
+            }
         }
 
     def OP_FIELD(self, args):

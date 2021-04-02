@@ -1,4 +1,4 @@
-from unomi_query_language.query.statement_templates.property_stmt_templates import property_op_stmt
+from .property_stmt_templates import property_op_stmt
 
 
 def nested_condition_stmt(condition_args, query_data_type):

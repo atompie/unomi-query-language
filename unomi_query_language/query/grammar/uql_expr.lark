@@ -15,6 +15,7 @@
         | OP_BOOL
         | op_dict
         | OP_TIME
+        | op_compound_value
 ?and_expr: op_condition
         | "(" expr ")"
         | and_expr AND_TERMINAL and_expr
@@ -45,6 +46,8 @@ OP_BOOL: /(TRUE|FALSE)/i
 op_dict : "{" [pair ("," pair)*] "}"
 pair : OP_STRING ":" op_value
 OP_STRING: ESCAPED_STRING
+op_value_type: /[a-zA-Z0-9]+/
+op_compound_value: op_value_type "(" ESCAPED_STRING ")"
 OP_INTEGER: /\d+/
 OP_FLOAT: NUMBER
 OP_TIME: /\d+(m|s|h|d)/

@@ -1,4 +1,4 @@
-from unomi_query_language.query.mappers.condition_type_mapper import condition_mapper
+from ..mappers.condition_type_mapper import condition_mapper
 
 
 def check_field(field, data_type):
@@ -55,6 +55,6 @@ def property_op_stmt(args, query_data_type):
             for value in args['values']:
                 result["parameterValues"][value['value']['unomi-type']] = value['value']['value']
         else:
-            raise ValueError("Unknown values type")
+            raise ValueError("Unknown value type ``".format())
 
     return result

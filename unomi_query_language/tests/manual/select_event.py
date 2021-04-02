@@ -1,16 +1,15 @@
 import json
+from pprint import pprint
 
 from unomi_query_language.query.dispatcher import Host, Dispatcher
 from unomi_query_language.query.parser import Parser
 from unomi_query_language.query.grammar.grammars import read
-from pprint import pprint
-
 from unomi_query_language.query.transformers.select_transformer import SelectTransformer
 
 p = Parser(read('uql_select.lark'), start='select')
 t = p.parse(
     """
-    SELECT EVENT OFFSET 10 LIMIT 100 
+    SELECT EVENT WHERE timestamp=Date("10 day ago")
     """
 )
 

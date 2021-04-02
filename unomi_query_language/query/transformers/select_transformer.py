@@ -1,12 +1,11 @@
 from lark import Tree
 
-from query.statement_templates.sort_stmt_templates import sort_stmt
-from query.transformers.sort_transformer import SortTransformer
-from unomi_query_language.query.statement_templates.query_stmt_templates import create_condition_stmt, select_stmt
-from unomi_query_language.query.mappers.uri_mapper import uri_mapper
-from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
-from unomi_query_language.query.transformers.meta_transformer import MetaTransformer
-from unomi_query_language.query.transformers.transformer_namespace import TransformerNamespace
+from ..statement_templates.sort_stmt_templates import sort_stmt
+from ..transformers.sort_transformer import SortTransformer
+from ..statement_templates.query_stmt_templates import create_condition_stmt, select_stmt
+from ..mappers.uri_mapper import uri_mapper
+from ..transformers.condition_transformer import ConditionTransformer
+from ..transformers.transformer_namespace import TransformerNamespace
 
 
 class SelectTransformer(TransformerNamespace):

@@ -1,7 +1,7 @@
-from unomi_query_language.query.statement_templates.query_stmt_templates import create_segment_stmt, create_condition_stmt
-from unomi_query_language.query.mappers.uri_mapper import uri_mapper
-from unomi_query_language.query.transformers.condition_transformer import ConditionTransformer
-from unomi_query_language.query.transformers.meta_transformer import MetaTransformer
+from ..statement_templates.query_stmt_templates import create_segment_stmt, create_condition_stmt
+from ..mappers.uri_mapper import uri_mapper
+from .condition_transformer import ConditionTransformer
+from .meta_transformer import MetaTransformer
 
 
 class CreateSegmentTransformer(MetaTransformer):

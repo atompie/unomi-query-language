@@ -1,4 +1,4 @@
-from query.statement_templates.property_stmt_templates import check_field
+from .property_stmt_templates import check_field
 
 
 def sort_stmt(args, query_data_type):
