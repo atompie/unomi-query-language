@@ -142,7 +142,7 @@ class ConditionTransformer(TransformerNamespace):
         return {
             'value': {
                 'type': 'bool',
-                "unomi-type": 'propertyValue',
+                "unomi-type": 'propertyValueBoolean',
                 'value': True if args.value.lower() == 'true' else False
             }
         }
@@ -150,7 +150,7 @@ class ConditionTransformer(TransformerNamespace):
     def OP_INTEGER(self, args):
         return {
             'value': {
-                'type': 'number',
+                'type': 'integer',
                 "unomi-type": 'propertyValueInteger',
                 'value': int(args.value)
             }
@@ -159,7 +159,7 @@ class ConditionTransformer(TransformerNamespace):
     def OP_FLOAT(self, args):
         return {
             'value': {
-                'type': 'number',
+                'type': 'float',
                 "unomi-type": 'propertyValueDouble',
                 'value': float(args.value)
             }

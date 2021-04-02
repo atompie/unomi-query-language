@@ -22,20 +22,6 @@ class FunctionTransformer(TransformerNamespace):
     def param(self, args):
 
         if isinstance(args[0], Tree):
-            values = args[0].children
-            return "ARRAY", values
+            args = args[0].children
 
-        elif isinstance(args[0], Token):
-            value = args[0]
-
-            type = value.type
-
-            # remove namespace
-            if '__' in type:
-                type = type.split('__')[-1]
-
-            if type == "ESCAPED_STRING":
-                value = args[0].value.replace("\"", "")
-            else:
-                value = args[0].value
-            return type, value
+        return args[0]

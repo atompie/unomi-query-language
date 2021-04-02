@@ -9,7 +9,8 @@ from unomi_query_language.query.transformers.select_transformer import SelectTra
 p = Parser(read('uql_select.lark'), start='select')
 t = p.parse(
     """
-    SELECT EVENT WHERE timestamp=Date("10 day ago")
+    # SELECT EVENT WHERE persistent=true
+    SELECT EVENT WHERE persistent=Date("2020-02-01")
     """
 )
 

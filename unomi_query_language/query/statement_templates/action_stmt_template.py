@@ -2,6 +2,9 @@ from ...errors import ActionParamsError, ActionParamError
 
 
 def copy_events_to_profile_properties_stmt(params):
+    if len(params) != 0:
+        params = [v for k, v in params]
+        raise ValueError("unomi:CopyAllProperties() does not tage any params. Given `{}`.".format(params))
     return {
         "type": "allEventToProfilePropertiesAction",
         "parameterValues": {},
@@ -41,33 +44,34 @@ def new_user_since(params):
         }
     }
 
+
 # this works
 def set_profile_property_from_event_stmt(params):
     if 3 < len(params) or len(params) < 2:
         raise ActionParamsError(
-            "Invalid number of parameters in action SetProfilePropertyFromEvent. Required parameters 2 or 3. Given {}".format(
+            "Invalid number of parameters in action unomi:CopyProperty. Required parameters 2 or 3. Given {}".format(
                 len(params)))
 
     if len(params) == 2:
         params.append(('ESCAPED_STRING', 'alwaysSet'))
 
-    profile_value_type, profile_property_name = params[0]
-    event_value_type, event_property_name = params[1]
+    event_value_type, event_property_name = params[0]
+    profile_value_type, profile_property_name = params[1]
     op_value_type, op_property_name = params[2]
 
-    if profile_value_type != "ESCAPED_STRING":
+    if profile_value_type != "DOTTED_FIELD":
         raise ActionParamError(
-            "First param of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
-                profile_value_type))
+            "First param (profilePropertyField) of action unomi:CopyProperty must be field. Type of `{}:{}` given.".format(
+                profile_property_name, profile_value_type))
 
-    if event_value_type != "ESCAPED_STRING":
+    if event_value_type != "DOTTED_FIELD":
         raise ActionParamError(
-            "Second param `{}` of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
+            "Second param (eventPropertyField) of action unomi:CopyProperty must be string. Type of `{}:{}` given.".format(
                 event_property_name, event_value_type))
 
     if op_value_type != "ESCAPED_STRING":
         raise ActionParamError(
-            "Third param of action SetProfilePropertyFromEvent must be string. Type of `{}` given.".format(
+            "Third param of action unomi:CopyProperty must be string. Type of `{}` given.".format(
                 op_value_type))
 
     return {
@@ -145,7 +149,7 @@ def remove_from_profile_property_stmt(params):
 def set_profile_property_stmt(params):
     if 3 < len(params) or len(params) < 2:
         raise ActionParamsError(
-            "Invalid number of parameters in action SetProfilePropertyValue. Required parameters 2 or 3. Given {}".format(
+            "Invalid number of parameters in action unomi:SetProperty. Required parameters 2 or 3. Given {}".format(
                 len(params)))
 
     if len(params) == 2:
@@ -155,34 +159,37 @@ def set_profile_property_stmt(params):
     property_value_type, property_value = params[1]
     op_value_type, op_property_name = params[2]
 
-    if profile_property_name_type != "ESCAPED_STRING":
+    if profile_property_name_type != "DOTTED_FIELD":
         raise ActionParamError(
-            "First param of action SetProfilePropertyValue must be string. Type of `{}` given.".format(
-                profile_property_name_type))
+            "First param of action unomi:SetProperty must be field. Type of `{}:{}` given.".format(
+                profile_property_name, profile_property_name_type))
 
     if property_value_type == "ESCAPED_STRING":
         set_property_value = "setPropertyValue"
-    elif property_value_type == "NUMBER":
+    elif property_value_type == "INTEGER":
         set_property_value = "setPropertyValueInteger"
+    elif property_value_type == "FLOAT":
+        set_property_value = "setPropertyValueDouble"
     elif property_value_type == "array":
         set_property_value = "setPropertyValueMultiple"
     elif property_value_type == "BOOL":
         set_property_value = "setPropertyValueBoolean"
+    elif property_value_type == "date":
+        set_property_value = "setPropertyValueDate"
     else:
         raise ActionParamError(
-            "Second param of action SetProfilePropertyValue must be string or number or array or bool. Type of `{}` given.".format(
-                property_value_type))
+            "Second param of action unomi:SetProperty must be string or number or array or bool. Type of `{}:{}` given.".format(
+                property_value, property_value_type))
 
     if op_value_type != "ESCAPED_STRING":
         raise ActionParamError(
-            "Third param of action SetProfilePropertyValue must be string. Type of `{}` given.".format(
-                op_value_type))
+            "Third param of action unomi:SetProperty must be string. Type of `{}:{}` given.".format(
+                op_property_name, op_value_type))
 
     return {
         "type": "setPropertyAction",
         "parameterValues": {
             "setPropertyName": "properties({})".format(profile_property_name),
-            # "setPropertyName": profile_property_name,
             set_property_value: property_value,
             "setPropertyStrategy": op_property_name
         }

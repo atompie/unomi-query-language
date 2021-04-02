@@ -1,12 +1,8 @@
-%import .uql_common (NUMBER, ESCAPED_STRING, WS, array)
+%import .uql_common (value, WS)
 
 function: FUNCTION_NAME "(" params? ")"
-FUNCTION_NAME: /[a-zA-z_0-9]+/
+FUNCTION_NAME: /[a-zA-z_0-9:]+/
 params: [param ("," param)*]
-param: ESCAPED_STRING
-    | NUMBER
-    | DOTTED_FIELD
-    | array
-DOTTED_FIELD: /[a-zA-Z0-9\._\-:]+/
+param:  value
 
 %ignore WS

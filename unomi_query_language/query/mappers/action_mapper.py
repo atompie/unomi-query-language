@@ -4,29 +4,31 @@ from unomi_query_language.query.statement_templates.action_stmt_template import 
     remove_from_profile_property_stmt
 
 action_mapper = {
-    "CopyEventsToProfileProperties": {
+    # This one is working
+    "unomi:CopyAllProperties": {
         "metadata": {
             "description": "Copy all properties from event to profile properties.",
-            "signature": "copyEventsToProfileProperties()"
+            "signature": "unomi:CopyAllProperties()"
         },
         "exec": copy_events_to_profile_properties_stmt
     },
-    "SetProfilePropertyFromEvent": {
+    # This one works
+    "unomi:CopyProperty": {
         "metadata": {
             "description": "Copy selected property from event to profile property. " +
                            "This function requires 3 parameters an event property name, profile property name and " +
                            "type of assignment (default is equals).",
-            "signature": "setProfilePropertyFromEvent(eventPropertyName, profilePropertyName [, op=\"equals\"])"
+            "signature": "unomi:CopyProperty(eventPropertyField, profilePropertyField, [, op=\"equals\"])"
         },
         "exec": set_profile_property_from_event_stmt
     },
     # This one works
-    "SetProfilePropertyValue": {
+    "unomi:SetProperty": {
         "metadata": {
             "description": "Sets profile property to given value of type string, int, bool, list. " +
                            "This function requires 3 parameters a profile property name, event property name and " +
                            "type of assignment (default is equals).",
-            "signature": "SetProfilePropertyValue(profilePropertyName:string, eventPropertyName:any, [, op=\"equals\"])"
+            "signature": "unomi:SetProperty(profilePropertyField, value, [, op=\"equals\"])"
         },
         "exec": set_profile_property_stmt
     },

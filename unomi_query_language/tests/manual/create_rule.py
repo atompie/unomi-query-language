@@ -57,10 +57,15 @@ t = p.parse(
     # IN SCOPE "site-1" WHEN event:type="add" 
     # THEN AddToProfileProperty("properties.listOfA","b")
     
+    # CREATE RULE "Example: add to list" 
+    # DESCRIBE "Uses AddToProfilePropertyList" 
+    # IN SCOPE "site-1" WHEN event:type="add" 
+    # THEN unomi:CopyProperty(event.x,prop.v)
+    
     CREATE RULE "Example: add to list" 
     DESCRIBE "Uses AddToProfilePropertyList" 
     IN SCOPE "site-1" WHEN event:type="add" 
-    THEN RemoveFromProfileProperty("list","b")
+    THEN unomi:SetProperty(event.x,Date("now"))
 
     """
 )

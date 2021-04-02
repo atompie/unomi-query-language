@@ -3,7 +3,6 @@ condition_mapper = {
         "condition": "eventPropertyCondition",
         "fields": {  # allowed fields
             'id': "itemId",
-            'scope': "scope",
             'type': 'eventType',
             'timestamp': 'timeStamp',
             'profile.id': "profileId",
@@ -15,16 +14,24 @@ condition_mapper = {
             'source.type': "source.itemType",
             'target.type': "target.itemType",
             'target.profile.id': "target.profile.itemType",
+
+            # original
+
+            'itemId': 'itemId',
+            'itemType': 'itemType',
+            'eventType': 'eventType',
+            'scope': "scope",
+            'sessionId':'sessionId',
+            'profileId': 'profileId',
+            'timeStamp':'timeStamp',
+            'version': 'version',
+            'persistent': 'persistent',
         },
         "namespaces": {  # allowed fields namespace
             'properties': "properties",
             'source': "source",
-            'source.properties': "source.properties",
             'target': "target",
             'profile': 'profile',
-            'target.properties': "target.properties",
-            'target.profile.properties': "target.profile.properties",
-            'target.profile': "target.profile"
         },
     },
     "profile": {
