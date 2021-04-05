@@ -9,8 +9,6 @@ class SortTransformer(TransformerNamespace):
         self.namespace("uql_common__", CommonTransformer())
 
     def sort(self, args):
-        print(args)
-        exit()
         if not isinstance(args, list):
             args = [args]
 

@@ -2,7 +2,6 @@
 
 function: FUNCTION_NAME "(" params? ")"
 FUNCTION_NAME: /[a-zA-z_0-9:]+/
-params: [param ("," param)*]
-param:  value
+params: [value ("," value)*]
 
 %ignore WS

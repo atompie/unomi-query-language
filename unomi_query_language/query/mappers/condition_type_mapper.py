@@ -42,6 +42,8 @@ condition_mapper = {
             'visits': 'properties.nbOfVisits'
         },
         "namespaces": {
+            'systemProperties': "systemProperties",
+            'system.properties': "systemProperties",
             'properties': "properties",
             'segments': "segments",
             'scores': "scores",

@@ -18,15 +18,11 @@ class SelectTransformer(TransformerNamespace):
     def expr(self, args):
         return args
 
-    def _to_tuple(self, args):
-        for data in args:
-            if isinstance(data, Tree):
-                yield data.data, data.children
-            else:
-                yield data
+    def sort(self, args):
+        return 'sort', args
 
     def select(self, args):
-        elements = {k: v for k, v in self._to_tuple(args)}
+        elements = {k: v for k, v in args}
 
         query_data_type = elements['DATA_TYPE'] if 'DATA_TYPE' in elements else None
 

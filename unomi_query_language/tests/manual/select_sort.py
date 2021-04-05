@@ -13,4 +13,4 @@ t = p.parse(
 )
 #
 query = SortTransformer().transform(t)
-# print(query)
+print(query)

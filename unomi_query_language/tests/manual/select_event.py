@@ -10,7 +10,8 @@ p = Parser(read('uql_select.lark'), start='select')
 t = p.parse(
     """
     # SELECT EVENT WHERE persistent=true # error
-    SELECT EVENT WHERE persistent=Date("2020-02-01")
+    # SELECT EVENT WHERE persistent=Date("2020-02-01")
+    SELECT EVENT SORT BY version ASC,version DESC
     """
 )
 

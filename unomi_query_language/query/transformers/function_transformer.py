@@ -19,12 +19,5 @@ class FunctionTransformer(TransformerNamespace):
     def params(self, args):
         return 'PARAMS', args
 
-    def param(self, args):
-
-        if isinstance(args[0], Tree):
-            args = args[0].children
-
-        return args[0]
-
     def value(self, args):
         return args[0]
