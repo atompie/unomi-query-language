@@ -72,7 +72,7 @@ condition_mapper = {
         "fields": {  # allowed fields
 
             'id': "itemId",
-            'type': 'itemType',
+            'type': 'eventType',
             'name': 'metadata.name',
             'description': 'metadata.description',
             'scope': 'metadata.scope',
@@ -82,6 +82,7 @@ condition_mapper = {
             # Original
             'itemId': 'itemId',
             'itemType': 'itemType',
+            'eventType': 'eventType',
             'version': 'version',
             'priority': 'priority',
             'linkedItems': 'linkedItems'
