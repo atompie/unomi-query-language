@@ -3,10 +3,9 @@ operation_mapper = {
     "between": "between",
     "=": "equals",
     "!=": "notEquals",
+    "<>": "notEquals",  # todo implement in parser
     '>=': 'greaterThanOrEqualTo',
     '<=': 'lessThanOrEqualTo',
-    '=>': 'greaterThanOrEqualTo',
-    '=<': 'lessThanOrEqualTo',
     '>': 'greaterThan',
     '<': 'lessThan',
     'is null': 'isNull',
